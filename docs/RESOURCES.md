@@ -17,21 +17,81 @@ Checked 15 Nov 2026. Two rules apply to everything below:
 | **Radiation watch / Prepare** (`radiation_outlook`) | ASTRA rule on three early signs from NOAA: an M or X flare, a solar radio burst, NOAA's own chance of a radiation storm (20% or more), plus a rising particle level | NOAA SWPC files `xrays-6-hour.json`, `noaa-scales.json`, `alerts.json` (services.swpc.noaa.gov); [NASA, How NASA will protect astronauts from space radiation at the Moon](https://science.nasa.gov/science-research/heliophysics/how-nasa-will-protect-astronauts-from-space-radiation-at-the-moon) | Early signs (NOAA). NASA: a temporary shelter built from stowage bags, food and water on the Orion capsule; storm forecasting is hard. ASTRA says it cannot predict storms |
 | **Three levels of care** in every notification (self-care, tell the crew medical officer, emergency) | ASTRA design for missions far from Earth | [NASA OCHMO TB-044 Medical Operations](https://www.nasa.gov/wp-content/uploads/2025/08/ochmo-tb-044-medical-operations.pdf); the NASA Arrhythmia report | Medical support comes from the crew and from flight surgeons on the ground; ASTRA's three levels are its own simple version |
 
-## 2. NASA and space-agency resources
+## 2. NASA scientific sources (checked against the documents on 15 Nov 2026)
 
+How to read this section:
+- **None of these sources provides a validated threshold for ASTRA.** NASA publishes no heart-rate, SpO2, inactivity or radiation-alert values for this prototype. ASTRA's alert rules are the team's own experimental rules and are **not NASA-approved**. NASA guidance only shapes the advice text, the wording and the context.
+- Page numbers are PDF page numbers of the files as downloaded on 15 Nov 2026 (for TB-020, TB-031 and TB-044 they equal the printed numbers). "Not verified" means we did not confirm it.
+- "Does NOT validate" lists what a reader must not infer from the source.
+
+### 2.1 NASA OCHMO-TB-020 Rev E: Design for Ionizing Radiation Protection
+| | |
+|---|---|
+| Publisher | NASA Office of the Chief Health and Medical Officer (OCHMO), NASA-STD-3001 technical brief |
+| Revision | Rev E, dated 12/27/2022 (page 2); covers NASA-STD-3001 Vol 1 Rev B and Vol 2 Rev C |
+| URL | https://www.nasa.gov/wp-content/uploads/2023/03/radiation-protection-technical-brief-ochmo.pdf |
+| Verified locations | [V1 4030] career limit "less than 600 mSv", universal for all ages and sexes: page 4 (repeated page 13). [V1 4031] design-reference solar particle event (October 1989 events) below 250 mSv: page 6. [V2 6099] Space Weather Monitoring and [V2 6100] Ionizing Radiation Alerting: page 13. GCR shielding gives only about a 7% average reduction: page 7 |
+| ASTRA feature informed | The 600 mSv value in the Radiation page's illustrative exposure budget; the framing that space weather needs monitoring and alerting; the statement that ASTRA does not replace NASA's radiation monitoring (`backend/radiation.py`, `docs/RADIATION_MONITOR.md`) |
+| Does NOT validate | ASTRA's alert levels 0 to 3, the five-stage outlook or any of its triggers; any conversion from proton flux to dose; the demo background rate and event doses; that ASTRA meets [V2 6099] or [V2 6100]. These are requirements on NASA programs, not on a student prototype |
+
+### 2.2 NASA OCHMO-TB-031: Exercise Overview
+| | |
+|---|---|
+| Publisher | NASA OCHMO, NASA-STD-3001 technical brief |
+| Revision | dated 10/02/2023; covers NASA-STD-3001 Vol 1 Rev C and Vol 2 Rev D |
+| URL | https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-031-exercise-overview.pdf |
+| Verified locations | [V1 4003] In-Mission Aerobic Capacity, "maintained ... at or above 80% of the pre-mission capacity": page 2 |
+| ASTRA feature informed | The reason given on the Activity page and in the "no movement" advice for keeping up regular exercise |
+| Does NOT validate | The 60-minute stillness rule (`inactivity`), its movement threshold or the 07:00 to 22:00 window. TB-031 describes crew exercise countermeasures, not movement monitoring or alerts |
+
+### 2.3 NASA OCHMO-TB-044: Medical Operations, Spaceflight Considerations
+| | |
+|---|---|
+| Publisher | NASA OCHMO, NASA-STD-3001 technical brief |
+| Revision | dated 08/13/2025; covers NASA-STD-3001 Vol 1 Rev C and Vol 2 Rev E |
+| URL | https://www.nasa.gov/wp-content/uploads/2025/08/ochmo-tb-044-medical-operations.pdf |
+| Verified locations | Flight surgeons and crew medical roles, including the Chief Medical Officer (CMO) who "receives additional medical training" (page 3); telemedicine and remote communication (page 4); Private Medical Conferences (page 5); top priority to communication between the flight surgeon and the crew in an emergency (page 6) |
+| ASTRA feature informed | The idea behind ASTRA's three levels of care (self-care, tell the crew medical officer, emergency) |
+| Does NOT validate | The three levels themselves, which are ASTRA's own simplification; any notification threshold. **Wording note:** NASA's term is "Chief Medical Officer (CMO)". ASTRA's "crew medical officer" is its own generic wording, not a NASA job title [team to confirm] |
+
+### 2.4 NASA HRP Evidence Report: Risk of Cardiac Rhythm Problems During Spaceflight
+| | |
+|---|---|
+| Publisher | NASA Human Research Program, Human Health Countermeasures Element, Johnson Space Center |
+| Revision | Approved for public release June 12, 2017 |
+| URL | https://humanresearchroadmap.nasa.gov/evidence/other/Arrhythmia.pdf |
+| Verified locations | Section IV.A.4 "Exercise": high-intensity interval exercise has been prescribed (page 11); exercise testing limited to 85% of pre-flight maximal oxygen consumption except in controlled cases, ISS astronauts encouraged to wear heart-rate sensors and log sessions, heart-rate logs can only screen, post-flight reconditioning in the first 45 days (page 12); a crew member may not want to believe symptoms are cardiac because of the impact on the mission (page 27). Exact list of what ASTRA uses: `NASA_ARRHYTHMIA_REPORT_USE.md` |
+| ASTRA feature informed | The heart-rate notification advice (why it matters, when to ask for help), the Activity page exercise cards (tagged "adapted from NASA") |
+| Does NOT validate | ASTRA's heart-rate rule (today's average against the person's own baseline); any heart-rate or SpO2 threshold; that a fingertip pulse can detect an arrhythmia (the report says an ECG is needed to confirm one). It is not guidance for people who are not astronauts |
+
+### 2.5 NASA HRP Evidence Report HRP-47072: Risk of Reduced Physical Performance Capabilities Due To Reduced Aerobic Capacity
+| | |
+|---|---|
+| Publisher | NASA Human Research Program, Human Health Countermeasures Element, Johnson Space Center |
+| Revision | Approved for public release March 9, 2015 |
+| URL | https://humanresearchroadmap.nasa.gov/evidence/reports/Aerobic.pdf |
+| Verified locations | Executive summary (page 5): maintaining aerobic capacity is a significant concern, and even a 10% fall may affect tolerance to extended work. Other pages not checked [team to confirm which page each Activity card relies on] |
+| ASTRA feature informed | Background for the Activity advice |
+| Does NOT validate | Any activity, movement or inactivity threshold in ASTRA |
+
+### 2.6 NASA Open Science Data Repository (OSDR)
+| | |
+|---|---|
+| Publisher | NASA (GeneLab and the Ames Life Sciences Data Archive inside OSDR) |
+| Revision | live archive, searched on 14 and 15 Nov 2026 |
+| URL | https://osdr.nasa.gov (search API: https://osdr.nasa.gov/osdr/data/search) |
+| Verified locations | Study entries read at description level only. Studies listed in `OSDR_RESOURCES.md` and `data/reference.json` (OSD-435, 591, 720, 881, 334, 896, 897, 939, 1018, 776, 777, 778, 140, 964, 575, 484, 942, 51), status `needs_review` |
+| ASTRA feature informed | The read-only NASA reference panel (`backend/osdr.py`, `backend/reference.py`), labelled `external` |
+| Does NOT validate | Anything about ASTRA's readings: the OSDR studies are mostly omics, imaging and animal behaviour data and hold no wearable heart-rate, SpO2 or accelerometer time series, so ASTRA is not validated against them and never compares its readings with them |
+
+### 2.7 Other NASA and agency pages (context only, not re-checked in this audit)
 | Resource | Link | Used for |
 |---|---|---|
-| NASA HRP Evidence Report: Risk of Cardiac Rhythm Problems during Spaceflight (2017) | https://humanresearchroadmap.nasa.gov/evidence/other/Arrhythmia.pdf | Heart-rate advice, exercise examples, emergency signs |
-| NASA HRP Evidence Report: Risk of Reduced Physical Performance Capabilities | https://humanresearchroadmap.nasa.gov/evidence/reports/Aerobic.pdf | Activity advice |
-| NASA OCHMO TB-031: Exercise (NASA-STD-3001 Vol 1 Rev C) | https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-031-exercise-overview.pdf | Activity advice |
-| NASA OCHMO TB-044: Medical Operations | https://www.nasa.gov/wp-content/uploads/2025/08/ochmo-tb-044-medical-operations.pdf | Three levels of care |
-| NASA: Seven ways astronauts improve sleep | https://www.nasa.gov/missions/station/seven-ways-astronauts-improve-sleep-may-help-you-snooze-better-on-earth/ | Rest advice |
-| NASA OCHMO radiation protection technical brief (TB-020, NASA-STD-3001) | https://www.nasa.gov/wp-content/uploads/2023/03/radiation-protection-technical-brief-ochmo.pdf | Radiation facts, 600 mSv career limit |
-| NASA: How NASA will protect astronauts from space radiation at the Moon | https://science.nasa.gov/science-research/heliophysics/how-nasa-will-protect-astronauts-from-space-radiation-at-the-moon | Shelter idea, forecast limits |
+| NASA: Seven ways astronauts improve sleep | https://www.nasa.gov/missions/station/seven-ways-astronauts-improve-sleep-may-help-you-snooze-better-on-earth/ | Rest advice [page content not re-checked on 15 Nov] |
+| NASA: How NASA will protect astronauts from space radiation at the Moon | https://science.nasa.gov/science-research/heliophysics/how-nasa-will-protect-astronauts-from-space-radiation-at-the-moon | The Orion shelter idea (stowage bags, food and water) and the statement that forecasting is hard |
 | NASA Human Research Program: hazards, risks, ongoing research | https://www.nasa.gov/hrp/hazards/ , https://www.nasa.gov/hrp/risks/ , https://www.nasa.gov/hrp/ongoing-hrp-research/ | Problem framing |
-| NASA: The human body in space (five hazards) | https://www.nasa.gov/humans-in-space/the-human-body-in-space/ | Problem framing |
-| NASA Open Science Data Repository (OSDR), GeneLab and Ames Life Sciences Data Archive | https://osdr.nasa.gov (search API `https://osdr.nasa.gov/osdr/data/search`) | NASA reference panel: related studies, read-only, labelled `external` (`backend/osdr.py`, `data/reference.json`, `OSDR_RESOURCES.md`). Studies: OSD-435, 591, 720, 881, 334, 896, 897, 939, 1018, 776, 777, 778, 140, 964, 575, 484, 942, 51. The OSDR studies hold no wearable heart-rate or motion data, so ASTRA does not compare its readings with them |
-| Canadian Space Agency: Monitoring radiation for astronaut health; Why do we conduct science experiments in space | https://www.asc-csa.gc.ca/eng/news/articles/2026/2026-02-26-monitoring-radiation-astronaut-health.asp , https://www.asc-csa.gc.ca/eng/iss/science/why-do-we-conduct-science-experiments-in-space.asp | Context |
+| NASA: The human body in space | https://www.nasa.gov/humans-in-space/the-human-body-in-space/ | Problem framing |
+| Canadian Space Agency: monitoring radiation for astronaut health; why we do science in space | https://www.asc-csa.gc.ca/eng/news/articles/2026/2026-02-26-monitoring-radiation-astronaut-health.asp , https://www.asc-csa.gc.ca/eng/iss/science/why-do-we-conduct-science-experiments-in-space.asp | Context |
 
 ## 3. Other data and background reading
 | Resource | Link | Used for |

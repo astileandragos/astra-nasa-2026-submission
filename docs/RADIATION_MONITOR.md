@@ -1,10 +1,10 @@
 # ASTRA Radiation Risk Monitor: science, design and implementation
 
-Status: design and first implementation on branch `feat/radiation-monitor` (14 Nov 2026). Educational prototype for NASA Space Apps Challenge 2026. **It does not replace NASA's radiation monitoring and gives no certified medical or flight-safety decisions.**
+Status: written during the 14-15 Nov 2026 hackathon; the first design and the final implementation differ in places, and where they do, `docs/RADIATION_REFERENCES.md` section 0 and `backend/radiation.py` are authoritative (see the notes marked SUPERSEDED below). Educational prototype for NASA Space Apps Challenge 2026. **It does not replace NASA's radiation monitoring and gives no certified medical or flight-safety decisions.**
 
 What we read for this document (so the team knows what is verified and what is not):
 - **Read in full:** NASA OCHMO-TB-020 Rev E "Design for Ionizing Radiation Protection" (27 Dec 2022, derived from NASA-STD-3001 Vol 1 Rev B and Vol 2 Rev C), the NOAA SWPC Space Weather Scales page (S-scale), the NOAA SWPC GOES proton flux product page, and the real NOAA JSON files (downloaded and inspected on 14 Nov 2026).
-- **Not read directly:** NASA-STD-3001 itself (Volume 1 and 2), the NASA Space Radiation Analysis Group pages, and NASA's other space radiation research pages. What we say about the standard comes from the technical brief, which quotes it. The text of the Volume 2 requirements on space weather monitoring, alerting and dose monitoring (V2 6099 to 6101) was **not** read; only their titles appear in the brief. Red should read them before the pitch.
+- **Not read directly:** NASA-STD-3001 itself (Volume 1 and 2), the NASA Space Radiation Analysis Group pages, and NASA's other space radiation research pages. What we say about the standard comes from the technical brief, which quotes it. The text of the Volume 2 requirements on space weather monitoring, alerting and dose monitoring (V2 6099 to 6101) was **not** read; only their titles appear in the brief. Ciolea Daniel should read them before the pitch.
 - No files were attached to the request; the "uploaded materials" were looked up online.
 
 Everything marked *illustrative* is a team decision for the demo, not a NASA value.
@@ -57,7 +57,7 @@ Other statements in TB-020 that shape the design:
 - 600 mSv is a **career** effective dose limit. It is not a mission length, not a budget for one mission and not "days in space". Dividing 600 mSv by a daily rate gives a meaningless number of days.
 - 250 mSv is the **per-event design protection requirement** for the reference SPE. It is not an alarm level and it is not a limit that applies to every event.
 - Neither is something a flux number can be compared to.
-- **Official NASA requirements** (above) and **our illustrative demo values** (budget 100 mSv, background 0.5 mSv/day, scenario doses, alert levels) are shown separately everywhere in the product. The 0.5 mSv/day default comes from the figure TB-020 uses for a surface mission analysis; it is an assumption, and real rates vary with location, shielding and the solar cycle (TB-020 also uses 1.5 mSv/day for a Mars transit example).
+- **Official NASA requirements** (above) and **our illustrative demo values** (exposure budget, background 0.5 mSv/day, scenario doses, alert levels; the current defaults are in `docs/RADIATION_REFERENCES.md` section 0) are shown separately everywhere in the product. The 0.5 mSv/day default comes from the figure TB-020 uses for a surface mission analysis; it is an assumption, and real rates vary with location, shielding and the solar cycle (TB-020 also uses 1.5 mSv/day for a Mars transit example).
 
 ---
 
@@ -125,14 +125,14 @@ D_accumulated = D_initial + R_baseline x t_since_start + sum(event and operator 
 D_remaining   = D_budget - D_accumulated
 T_estimated   = D_remaining / R_projected        (days; R_projected = R_baseline)
 ```
-- `D_budget`: configurable demonstration budget (default 100 mSv). **Not 600 mSv.**
-- `D_initial`: dose already accumulated when the demonstration starts (default 20 mSv).
+- `D_budget`: configurable budget. **SUPERSEDED:** the first design used 100 mSv ("not 600 mSv"); the implemented default is NASA's 600 mSv career limit (`CAREER_LIMIT_MSV`), still an illustrative budget, not a safe mission duration.
+- `D_initial`: dose already accumulated when the demonstration starts. **SUPERSEDED:** the first design used 20 mSv; the implemented default is 36.5 mSv (a demo mission of 180 days, day 73, at 0.5 mSv/day).
 - `R_baseline`: assumed background effective dose rate (default 0.5 mSv/day).
 - `t_since_start`: days since the budget was first read.
 - Event doses: from a labelled **simulated event** (illustrative values 0.1, 1, 5, 20 and 60 mSv for S1 to S5, chosen by the team, **not derived from flux**) or entered by an operator (for example a dosimeter reading).
 - If `R_baseline` is 0 the estimate is shown as unknown, not infinite. If `D_remaining` is 0 or less the days are 0 and the budget is marked used up.
 
-**Example (the demo):** budget 100, initial 20, rate 0.5 gives 80 mSv remaining and 160 days. A simulated S4 event adds 20 mSv: remaining 80 to 60 mSv, estimated days 160 to 120. The page says exactly that, in a sentence, so the change is explained: *"Simulated S4 event: +20 mSv. Remaining budget 80 -> 60 mSv; estimated remaining days 160 -> 120 at 0.5 mSv/day."*
+**Example (first design, SUPERSEDED defaults; the arithmetic is unchanged):** budget 100, initial 20, rate 0.5 gives 80 mSv remaining and 160 days. A simulated S4 event adds 20 mSv: remaining 80 to 60 mSv, estimated days 160 to 120. With the implemented defaults (budget 600, initial 36.5, rate 0.5) the remaining budget starts at 563.5 mSv. The page says exactly that, in a sentence, so the change is explained: *"Simulated S4 event: +20 mSv. Remaining budget 80 -> 60 mSv; estimated remaining days 160 -> 120 at 0.5 mSv/day."*
 
 **Why this is only a teaching model**
 - A constant rate is a strong simplification. Real rates depend on location, shielding, EVA time and the solar cycle.
@@ -174,14 +174,14 @@ T_estimated   = D_remaining / R_projected        (days; R_projected = R_baseline
 - **Acknowledgement.** Onset and escalation alerts ask for one. Acknowledging (dashboard button or ESP32 button) stops the repeating sound and the "BTN = ACKNOWLEDGE" prompt but **does not lower the level**. A new escalation asks again. Easing and recovery are information only.
 - **Hysteresis.** A flux hovering around 10 pfu does not flip the level: it must fall below 5 pfu for 30 minutes to recover.
 - **Missing or delayed data.** `data_status`: `ok` (newest sample up to 15 min old), `delayed` (15 min to 2 h), `stale` (older), `no_data`. The level is **held** when data is late and the OLED footer says DATA DELAYED or DATA STALE. Missing values are never read as zero flux.
-- **Why these numbers:** 3 samples for onset mirrors how NOAA lists events (to be verified by Red); 2 for escalation reacts faster once an event exists; 6 samples and a 0.5 factor are deliberately slow so the display does not flicker. They are illustrative parameters in `backend/radiation.py`.
+- **Why these numbers:** 3 samples for onset mirrors how NOAA lists events (to be verified by Ciolea Daniel); 2 for escalation reacts faster once an event exists; 6 samples and a 0.5 factor are deliberately slow so the display does not flicker. They are illustrative parameters in `backend/radiation.py`.
 - **Honest limit:** the 5-minute averages and about 10 minutes of delay mean the first alert comes roughly 20 to 30 minutes after the flux crosses a threshold. That is why NASA emphasises onboard real-time dosimetry for EVA.
 
 ---
 
 ## 7. OLED messages and the ESP32 contract
 
-Display: SSD1306 128x64 text size 1 = **4 lines of 21 characters** plus a footer line. (The OLED model, address and library are **not confirmed**; Yellow and Green must confirm before firmware work.)
+Display: SSD1306 128x64 text size 1 = **4 lines of 21 characters** plus a footer line. (The OLED model, address and library were **not confirmed**. On the board used for the final demo the OLED was **not detected**, and these radiation messages are **not sent to the board by an endpoint poll**: the board's 16x2 LCD shows the dashboard notifications, including radiation, through `tools/serial_bridge.py`. This section is the original design and is not a description of the final hardware.)
 
 | Level | Line 1 | Line 2 | Line 3 | Line 4 | Sound |
 |---|---|---|---|---|---|
@@ -194,7 +194,7 @@ Footer: `BTN = ACKNOWLEDGE` while an alert waits for acknowledgement, `DATA DELA
 
 **Escalation and return to normal on the display:** the screen shows the current level at all times; a higher level replaces it and asks again. When the machine recovers, the screen says NORMAL; it does not claim "all clear to resume EVA" (the dashboard alert text says to wait for mission control).
 
-**Firmware contract** (for Yellow; this branch does not touch `firmware/`):
+**Firmware contract** (for Râpan Andrei; this branch does not touch `firmware/`):
 - Poll `GET /api/radiation/alert?source=external` every 10 to 30 s. The answer is already formatted for the display:
 ```json
 {"source":"external","level":3,"s_class":4,"data_status":"ok","alert_id":"simulated:20261114T130000Z:3","ack_pending":true,
@@ -251,7 +251,7 @@ Difficulty: S small, M medium, L large.
 |---|---|---|---|---|---|---|---|
 | NOAA fetch, validation, storage | none | `radiation.py`, 4 tables, refresh endpoint | status line | none | fake fetcher tests, live fetch checked | M | no internet at the venue: show last data and age |
 | Flux classification and event state machine | none | `evaluate()` replay | none | none | 20+ unit tests (onset, escalation, hysteresis, gaps, duplicates) | M | thresholds are illustrative |
-| Alerts, acknowledgement, `GET /api/radiation/alert` | OLED + button (not confirmed) | endpoints | alert cards, OLED preview | **Yellow:** poll, draw, button, buzzer | API tests; OLED test on hardware **pending** | M | OLED/buzzer hardware not confirmed |
+| Alerts, acknowledgement, `GET /api/radiation/alert` | OLED + button (not confirmed) | endpoints | alert cards, OLED preview | **Râpan Andrei:** poll, draw, button, buzzer | API tests; OLED test on hardware **pending** | M | OLED/buzzer hardware not confirmed |
 | Simulated scenarios | none | `simulate` | controls | none | scenario tests | S | looks real: keep the SIMULATED labels |
 | Radiation page and Overview notification | none | `notices.py` | page, chart, forms | none | browser checks desktop and 375 px | M | too much text for a 2-minute pitch |
 | Illustrative budget and "why it changed" | none | `budget()` | tiles, table, forms | none | formula and edge-case tests | M | people read it as a mission length: keep the wording |
@@ -262,7 +262,7 @@ Difficulty: S small, M medium, L large.
 | `>=100 MeV` channel and a "hardness" indicator | store the second channel, ratio rule | second line on the chart | none | unit tests with real SPE-shaped data | M | needs reading about what the ratio means |
 | Replay real historical events (for example NOAA 7-day files during a past storm) | load a stored JSON | none | none | assert the alerts match the known event | M | finding a clean test event |
 | Event-level summary: fluence of the event (flux integrated over time) as an *event size* number, **not dose** | integrate flux | event row | none | unit test with a known integral | S | people may still read it as dose: label it fluence |
-| Read the real text of NASA-STD-3001 V2 6099 to 6101 and align the alert wording | wording | wording | wording | review by Red | S | access to the standard |
+| Read the real text of NASA-STD-3001 V2 6099 to 6101 and align the alert wording | wording | wording | wording | review by Ciolea Daniel | S | access to the standard |
 | Onboard timestamp and heartbeat from the ESP32 for "server lost" | none | none | add | hardware | S | none |
 
 **P2: future** (see also section 13.5 for the organ map)
@@ -290,8 +290,8 @@ Difficulty: S small, M medium, L large.
 8. **Alert levels invented for a prototype** must never be presented as NASA flight rules; the interface says so.
 
 ## 12. Open questions for the team
-- Red: read NASA-STD-3001 Vol 2 6099 to 6101 and the SRAG pages; confirm the NOAA event definition (3 consecutive samples) and the wording of the three alert levels.
-- Yellow and Green: is there an OLED and a buzzer or a button on the board, and which model and address?
+- Ciolea Daniel: read NASA-STD-3001 Vol 2 6099 to 6101 and the SRAG pages; confirm the NOAA event definition (3 consecutive samples) and the wording of the three alert levels.
+- Râpan Andrei and Roșca Cristian: is there an OLED and a buzzer or a button on the board, and which model and address?
 - Everyone: how many minutes of the pitch may this feature use? One short demo (real S0, then the S4 simulation, acknowledge, budget change) fits in about 60 seconds.
 
 ---

@@ -50,6 +50,6 @@ We only read the study descriptions, not the papers or the data files. Each is i
 - We do not turn mouse radiation doses (Gy) into anything about the proton flux (pfu) or the astronaut dose on the Radiation page.
 
 ## 7. Ideas if there is time
-- Ask Red to read the three or four most relevant papers behind these studies (OSD-435, OSD-896, OSD-942) and promote their entries to `reviewed` with real numbers.
+- Ask Ciolea Daniel to read the three or four most relevant papers behind these studies (OSD-435, OSD-896, OSD-942) and promote their entries to `reviewed` with real numbers.
 - Use the OSDR Biological Data API only if the team wants omics data; it is outside ASTRA's scope.
 - Cite OSD-896 and OSD-1018 in the pitch as the reason ASTRA keeps self-reported fatigue and stress next to the sensors.

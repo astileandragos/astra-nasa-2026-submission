@@ -26,7 +26,7 @@ The dashboard is six pages served by the Flask backend at `http://<LAPTOP_IP>:50
 | **Radiation** | `radiation.html` | Radiation status with what to do and alerts, daily exposure against NASA's 600 mSv limit, event history |
 
 ### The rules every page follows
-1. **One data source per page.** The source is `simulated` or `live_hardware`, chosen in the top bar and kept in the address (`?source=simulated`). The data of the two sources is never mixed in one view.
+1. **Every record keeps its own label; a view can combine labelled sources.** Stored records are always `live_hardware`, `simulated`, `external` or `self_reported` and are never relabelled. The dashboard pages use the view `source=dashboard`: earlier days come from the labelled simulated baseline, and today comes from the live sensor if at least one live reading arrived today, otherwise from the simulator. The chips `BASELINE: SIMULATED WEEK` and `TODAY: LIVE SENSOR` or `TODAY: SIMULATOR` say which is which. The simulated baseline is demonstration data: it does not represent real historical measurements of any astronaut. `source=simulated` and `source=live_hardware` (in the address, for example `?source=simulated`) still show a single source.
 2. **The source is always visible** (a chip and a line under the page title, plus the switch in the top bar).
 3. **Missing means missing.** A value that is not available is shown as `--` or as a gap in a chart, never as `0`.
 4. **No medical claims.** Heart rate and SpO2 are labelled experimental estimates. Every observation names its values, its period and its rule.
@@ -463,9 +463,9 @@ Open `http://<LAPTOP_IP>:5000/?source=simulated`. To see the offline and stale s
 ## 13. Known limits
 - No real ESP32 data has been shown yet; everything above was checked on simulated data.
 - Rest is estimated from movement only and its thresholds (30-minute windows, 0.05 g) must be checked with real ICM-20948 data.
-- The notification thresholds and the advice wording are the team's choices, not sourced guidance; Black and Red review them.
+- The notification thresholds and the advice wording are the team's choices, not sourced guidance; Ioja Dănuț and Ciolea Daniel review them.
 - The NASA reference entries are not yet reviewed against their sources.
-- The wording of the Timeline guidance (rest times, symptom lists, re-measure intervals) is ASTRA's own where it is tagged ASTRA SUGGESTION; Red should check it against NASA's crew medical procedures.
+- The wording of the Timeline guidance (rest times, symptom lists, re-measure intervals) is ASTRA's own where it is tagged ASTRA SUGGESTION; Ciolea Daniel should check it against NASA's crew medical procedures.
 - The radiation alert levels, the daily exposure estimate (assumed background rate, demo event doses) is illustrative; the OLED and buzzer are not confirmed in hardware.
 - The Overview statuses reuse the baseline rules; SpO2 and activity thresholds (1 percentage point, 0.6 x and 1.6 x) are team choices.
 - Not checked: a real phone, a screen reader, dark mode (not planned).

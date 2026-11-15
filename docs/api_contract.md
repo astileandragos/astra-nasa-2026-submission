@@ -2,7 +2,7 @@
 
 **Status: v1, implemented by the backend, the dashboard and the firmware (14-15 Nov 2026).** Field names, units, paths and labels are the ones used in the code and the tests.
 
-Owner: Blue (Dragoș). This replaces the older team proposal where they differ (`spo2_percent`, not `spo2_pct`).
+Owner: Aștilean Dragoș. This replaces the older team proposal where they differ (`spo2_percent`, not `spo2_pct`).
 
 ## 1. How the data flows
 ```
@@ -18,8 +18,8 @@ MAX30102 + ICM-20948 -> ESP32 --(HTTP POST JSON, local Wi-Fi 2.4 GHz)--> Flask o
 | Wi-Fi | one 2.4 GHz network that the laptop and the ESP32 share (hotspot as backup) |
 
 - The server must listen on all interfaces (`host="0.0.0.0"`), otherwise the ESP32 cannot reach it. Windows Firewall may ask to allow Python on private networks: allow it.
-- Yellow keeps the URL and the Wi-Fi password in `secrets.h` (git-ignored), never in the repo.
-- Blue announces the real `<LAPTOP_IP>` on the message board once known. If the router gives a new IP, announce it again.
+- Râpan Andrei keeps the URL and the Wi-Fi password in `secrets.h` (git-ignored), never in the repo.
+- Aștilean Dragoș announces the real `<LAPTOP_IP>` on the message board once known. If the router gives a new IP, announce it again.
 
 ## 3. Rules that apply to everything
 1. **Missing data is `null`. Never `0`.** If a sensor value is missing, invalid or not measured (no finger on the MAX30102, sensor not detected, reading failed), send that field as `null`. `0` is a real value and must never mean "missing". This applies to every field in every endpoint.
@@ -37,7 +37,7 @@ MAX30102 + ICM-20948 -> ESP32 --(HTTP POST JSON, local Wi-Fi 2.4 GHz)--> Flask o
 | `external` | Imported from an outside dataset (for example NASA) | EXTERNAL DATA |
 
 - **`self_reported` is the final label** (the brief's `user_reported` is dropped, one spelling everywhere).
-- `external` is proposed here because Red's task sheet mentions external data and the brief's list has no label for it. Red confirms or removes it.
+- `external` is proposed here because Ciolea Daniel's task sheet mentions external data and the brief's list has no label for it. Ciolea Daniel confirms or removes it.
 - Demo or simulated values must never carry `live_hardware`.
 
 ## 5. Sensor measurement (ESP32 -> backend)
@@ -97,7 +97,7 @@ The ESP32 does **not** send a timestamp (section 3, rule 2).
 The backend rejects only values that are physically or technically impossible, to protect the database from garbage. These are sanity limits, not health ranges, and they are not shown to the user as health advice.
 - `heart_rate_bpm`: number greater than 0 and at most 300, or `null`.
 - `spo2_percent`: number greater than 0 and at most 100, or `null`.
-- `accel_*_g`: number between -16 and 16, or `null`. `gyro_*_dps`: number between -2000 and 2000, or `null`. (Typical full-scale ranges of the sensor; Yellow confirms the configured range.)
+- `accel_*_g`: number between -16 and 16, or `null`. `gyro_*_dps`: number between -2000 and 2000, or `null`. (Typical full-scale ranges of the sensor; Râpan Andrei confirms the configured range.)
 - A value of `0` for `heart_rate_bpm` or `spo2_percent` is rejected with a message telling the sender to use `null`.
 - `source` must be one of the labels in section 4. `signal_quality` one of the four values above.
 
@@ -181,7 +181,7 @@ Body:
 |---|---|---|---|
 | `date` | string `YYYY-MM-DD` | – | the day the entry is about. One entry per day: posting the same date again replaces it |
 | `sleep_hours` | number or `null` | hours | technical check: 0 to 24 |
-| `mood` | integer or `null` | 1 to 5 | proposed scale: 1 = lowest, 5 = highest. Black shows the same labels in the form |
+| `mood` | integer or `null` | 1 to 5 | proposed scale: 1 = lowest, 5 = highest. Ioja Dănuț shows the same labels in the form |
 | `energy` | integer or `null` | 1 to 5 | same scale |
 | `stress` | integer or `null` | 1 to 5 | same scale (1 = lowest stress, 5 = highest) |
 | `fatigue` | integer or `null` | 1 to 5 | same scale (1 = lowest fatigue, 5 = highest). Added 14 Nov from the ASTRA features document (daily check-in F14) |
@@ -208,7 +208,7 @@ Query: `date=YYYY-MM-DD` returns that day's entry; without it, the last entries.
 ```
 
 ### 6.7 Analysis endpoints (read only, simulated data first)
-All of them take `source` (default `live_hardware`; use `simulated` for the demo). **One source per answer, sources are never mixed**, and the answer repeats `source`. `date` (default today, `YYYY-MM-DD`) is the day being looked at. Errors use the shape in 6.2. Every statistic uses only readings with `signal_quality: "good"` and a non-null value; `null` is never counted as `0`. These are descriptive statistics of the person's own data, not medical thresholds.
+All of them take `source` (default `live_hardware`; `simulated` for simulated data only; `dashboard` for the demo view, which combines a labelled simulated baseline of the earlier days with today's live data, or with today's simulated data when no live reading arrived today). With `live_hardware` or `simulated` an answer uses one source only. The stored records always keep their own label, and the answer repeats `source`. `date` (default today, `YYYY-MM-DD`) is the day being looked at. Errors use the shape in 6.2. Every statistic uses only readings with `signal_quality: "good"` and a non-null value; `null` is never counted as `0`. These are descriptive statistics of the person's own data, not medical thresholds.
 
 #### `GET /api/quality?source=&days=7&date=`  (data quality, F13)
 `days` 1 to 30, default 7. Response `200`:
@@ -311,7 +311,7 @@ Curated references from `data/reference.json`: published papers and public datas
   ]
 }
 ```
-`kind` is `literature` or `dataset`. `status` is `needs_review` until a teammate has checked the entry against the source (`reviewed`). The panel must show `source_url`, the `cannot_be_compared` points and the `note`, and must label everything EXTERNAL DATA. Only facts that were read from the source are in the file: no per-phase heart rate numbers have been extracted yet, so none are shown. Red extends the file after reading the sources (same structure, `id` unique, `https` link, at least one statement and one limitation).
+`kind` is `literature` or `dataset`. `status` is `needs_review` until a teammate has checked the entry against the source (`reviewed`). The panel must show `source_url`, the `cannot_be_compared` points and the `note`, and must label everything EXTERNAL DATA. Only facts that were read from the source are in the file: no per-phase heart rate numbers have been extracted yet, so none are shown. Ciolea Daniel extends the file after reading the sources (same structure, `id` unique, `https` link, at least one statement and one limitation).
 
 ### 6.11 `GET /api/timeline?source=&days=7&date=`  (unified timeline, read only)
 One row per day, oldest first, combining the three kinds of information in one answer: the daily median heart rate (good-quality readings only), the mean movement index (experimental, see 6.7 activity), and the self-reported check-in of that day. Measurements come from `source` and the check-in from the matching family (`self_reported` entries for real sources, `simulated` entries for `source=simulated`), so nothing is mixed. `days` 1 to 30, default 7.
@@ -483,16 +483,16 @@ curl "http://<LAPTOP_IP>:5000/api/measurements?limit=20"  # newest first
 Test posts from curl use `"source":"simulated"`, never `live_hardware`.
 
 ## 8. What each person does with this
-- **Yellow (firmware):** build the JSON exactly as in section 5, `null` for anything not measured, no timestamp, `POST` it to `/api/measurements`, handle non-`201` responses. Tell Blue the sampling interval you can sustain.
-- **Black (frontend):** read `GET /api/measurements/latest` and `GET /api/measurements`, show the source label on every value, show "waiting for data" on `404` or `null`, send the journal to `POST /api/journal`. Until the server exists, use the example JSON in section 5 and 6 as mock data.
-- **Red:** confirm the `external` label and the journal scales; all NASA and other references are listed in `docs/RESOURCES.md`.
-- **Blue:** implements all of this in `backend/` and ships a simulator that posts `simulated` data.
+- **Râpan Andrei (firmware):** build the JSON exactly as in section 5, `null` for anything not measured, no timestamp, `POST` it to `/api/measurements`, handle non-`201` responses. Tell Aștilean Dragoș the sampling interval you can sustain.
+- **Ioja Dănuț (frontend):** read `GET /api/measurements/latest` and `GET /api/measurements`, show the source label on every value, show "waiting for data" on `404` or `null`, send the journal to `POST /api/journal`. Until the server exists, use the example JSON in section 5 and 6 as mock data.
+- **Ciolea Daniel:** confirm the `external` label and the journal scales; all NASA and other references are listed in `docs/RESOURCES.md`.
+- **Aștilean Dragoș:** implements all of this in `backend/` and ships a simulator that posts `simulated` data.
 
 ## 9. Review checklist (tick when agreed)
-- [ ] Yellow confirms the payload (section 5), units and sensor ranges
-- [ ] Black confirms the responses (section 6) and the journal scales
-- [ ] Red confirms the source labels (section 4), including `external`
-- [x] Self-reported label is `self_reported` (decided by Blue)
-- [x] Server records the time of receipt; ESP32 sends no timestamp (decided by Blue)
+- [ ] Râpan Andrei confirms the payload (section 5), units and sensor ranges
+- [ ] Ioja Dănuț confirms the responses (section 6) and the journal scales
+- [ ] Ciolea Daniel confirms the source labels (section 4), including `external`
+- [x] Self-reported label is `self_reported` (decided by Aștilean Dragoș)
+- [x] Server records the time of receipt; ESP32 sends no timestamp (decided by Aștilean Dragoș)
 - [ ] `<LAPTOP_IP>` and port announced on the board
-- [ ] Sampling interval agreed (Yellow, Blue, Black). Suggested start: one reading every 2 seconds
+- [ ] Sampling interval agreed (Râpan Andrei, Aștilean Dragoș, Ioja Dănuț). Suggested start: one reading every 2 seconds

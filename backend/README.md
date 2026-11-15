@@ -1,6 +1,6 @@
 # backend/
 
-Flask API + SQLite. Owner: Blue (Dragoș). Follows `docs/api_contract.md`.
+Flask API + SQLite. Owner: Aștilean Dragoș. Follows `docs/api_contract.md`.
 
 Implemented: health, measurements (POST, latest, history), daily check-in (`/api/journal`), and the analysis endpoints `/api/quality`, `/api/stats/daily`, `/api/baseline`, `/api/observation`, `/api/activity` (docs/api_contract.md sections 6 and 6.7), `/api/status` (freshness for a stale warning), `/api/export.csv` (CSV download) and `/api/reference` (curated external references, 6.8 to 6.10). All analysis endpoints take `?source=` (default `live_hardware`, use `simulated` for the demo) and never mix sources.
 

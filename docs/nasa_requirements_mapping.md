@@ -23,7 +23,7 @@ Sensors → ESP32 → (Wi-Fi or USB) → Flask API → SQLite → dashboard (and
 
 ## Scope and limitations
 - ASTRA is an educational prototype, not a medical device, and gives no diagnosis or medical advice.
-- Heart rate and motion come from low-cost sensors and are experimental estimates, not clinically validated; they would not survive the noise of microgravity. The prototype has not been validated in space.
+- Heart rate and motion come from low-cost sensors and are experimental estimates, not clinically validated; they have not been validated in microgravity, and further environmental testing, calibration and reliability studies would be required before any spaceflight use.
 - NASA publishes no alert thresholds for heart rate, blood oxygen or movement, so ASTRA's thresholds are the team's own choices, not NASA flight rules.
 - ASTRA does not measure radiation and does not predict solar storms. It shows NOAA's space-weather data and early signs, and says so.
 - Simulated data is always labelled. A missing value is `null`, never `0`.
