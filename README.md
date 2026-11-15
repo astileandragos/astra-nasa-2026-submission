@@ -95,6 +95,8 @@ Claude Code (Anthropic), an AI coding assistant, helped the team write and test 
 **[TEAM TO DECIDE]** No licence file has been added yet. See `THIRD_PARTY_NOTICES.md` section 3 for the recommendation (MIT or Apache-2.0). Third-party components keep their own licences (`THIRD_PARTY_NOTICES.md`).
 
 ## Team
+**Team name: Mon**
+
 | Name | Role |
 |---|---|
 | Ciolea Daniel | Product, integration, pitch |
