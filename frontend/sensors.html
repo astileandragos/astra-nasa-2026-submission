@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensors · ASTRA</title>
+    <link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<main id="main" class="page" data-page="sensors.html" data-title="Sensors">
+
+    <section class="panel" id="alert-panel" aria-labelledby="alert-h">
+        <div class="panel-head">
+            <h2 id="alert-h" class="label">Can I trust the readings?</h2>
+            <span id="alert-badge"></span>
+        </div>
+        <p class="rad-sub" id="alert-title"></p>
+        <p class="insight-statement" id="alert-text" aria-live="polite"></p>
+        <div id="alert-steps"></div>
+    </section>
+
+    <div class="grid-equal">
+        <section class="scard" id="s-max" aria-labelledby="s-max-h">
+            <span class="label" id="s-max-h">MAX30102 · heart rate and SpO2</span>
+            <div class="scard-value" id="s-max-value">--</div>
+            <dl class="facts" id="s-max-facts"></dl>
+            <p class="note">Heart rate and SpO2 are estimated from light on the fingertip. They need a steady finger and a still hand.</p>
+        </section>
+        <section class="scard" id="s-imu" aria-labelledby="s-imu-h">
+            <span class="label" id="s-imu-h">ICM-20948 · motion</span>
+            <div class="scard-value" id="s-imu-value">--</div>
+            <dl class="facts" id="s-imu-facts"></dl>
+            <p class="note">Measures acceleration. ASTRA uses it for activity and rest only.</p>
+        </section>
+    </div>
+
+    <section class="panel" aria-labelledby="miss-h">
+        <div class="panel-head">
+            <h2 id="miss-h" class="label">Missing or unavailable data, last 7 days</h2>
+        </div>
+        <div class="tiles" id="miss-tiles"></div>
+        <p class="note">Missing values stay empty, and no health warning is made from a poor-signal reading.</p>
+        <p class="error-text" id="miss-error"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="how-h">
+        <div class="panel-head"><h2 id="how-h" class="label">How to get a good measurement</h2></div>
+        <ol class="steps">
+            <li>Place your fingertip flat on the sensor and keep it there.</li>
+            <li>Keep your hand and arm still while it measures.</li>
+            <li>Check that the sensor and cable are firmly connected.</li>
+            <li>Wait a few seconds and look again. Readings with a poor signal are not used for any warning.</li>
+        </ol>
+    </section>
+
+    <section class="panel" aria-labelledby="demo-h">
+        <div class="panel-head">
+            <h2 id="demo-h" class="label">Live demo</h2>
+        </div>
+        <p class="insight-statement" id="demo-state">Checking the data...</p>
+        <details class="ref">
+            <summary>Start the live demo again</summary>
+            <p class="note">Removes today's readings and today's check-in so the live sensor starts from zero. The earlier days (the simulated baseline week) are never touched.</p>
+            <button type="button" class="button button-quiet" id="demo-reset">Remove today's data</button>
+            <p class="message" id="demo-msg" role="status" aria-live="polite"></p>
+        </details>
+    </section>
+
+</main>
+<script src="core.js"></script>
+<script src="advice.js"></script>
+<script src="sensors.js"></script>
+</body>
+</html>

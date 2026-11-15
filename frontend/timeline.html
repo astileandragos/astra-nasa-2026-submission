@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline · ASTRA</title>
+    <link rel="stylesheet" href="ui.css">
+    <script src="chart.js"></script>
+</head>
+<body>
+<main id="main" class="page">
+
+    <section class="panel" aria-labelledby="sum-h">
+        <div class="panel-head">
+            <h2 id="sum-h" class="label">Summary</h2>
+            <span class="seg seg-buttons" role="group" aria-label="Time range">
+                <button type="button" class="range-btn" data-days="7" aria-pressed="true">7 days</button>
+                <button type="button" class="range-btn" data-days="14" aria-pressed="false">14 days</button>
+                <button type="button" class="range-btn" data-days="30" aria-pressed="false">30 days</button>
+            </span>
+        </div>
+        <p class="note" id="sum-range"></p>
+        <div class="tiles" id="sum-tiles"></div>
+        <p class="note">Days without enough good readings are left out, never counted as 0.</p>
+        <p class="error-text" id="sum-error"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="hr-h">
+        <div class="panel-head">
+            <h2 id="hr-h" class="label">Heart rate and your baseline</h2>
+            <span id="hr-chip"></span>
+        </div>
+        <div id="ribbon-box" class="ribbon-wrap"></div>
+        <div class="chart-box chart-tall"><canvas id="hr-chart" role="img" aria-label="Daily heart rate: median, low to high, and your baseline"></canvas></div>
+        <p class="note" id="hr-note"></p>
+        <p class="note">Hover or tap a day for the exact numbers. Select a day to see it below.</p>
+        <p class="error-text" id="hr-error"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="mv-h">
+        <div class="panel-head">
+            <h2 id="mv-h" class="label">Active time</h2>
+        </div>
+        <div class="chart-box"><canvas id="mv-chart" role="img" aria-label="Daily active time"></canvas></div>
+        <p class="note">Active time each day, from the motion sensor (ICM-20948). Days without enough data are empty. Rest is estimated from movement on the Activity page.</p>
+        <p class="error-text" id="mv-error"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="log-h">
+        <div class="panel-head">
+            <h2 id="log-h" class="label">Daily log</h2>
+            <a class="button button-quiet" id="log-csv" href="#" download>Download CSV</a>
+        </div>
+        <p class="note">The exact numbers behind the charts. Choose a day to see it in detail.</p>
+        <div class="table-scroll">
+            <table class="data-table" id="log-table">
+                <thead><tr>
+                    <th scope="col">Day</th><th scope="col">Readings</th>
+                    <th scope="col">Heart rate average</th><th scope="col">Low</th><th scope="col">High</th><th scope="col">Median</th>
+                    <th scope="col">SpO2 average</th><th scope="col">Active time</th>
+                    <th scope="col">Mood</th><th scope="col">Energy</th><th scope="col">Stress</th><th scope="col">Fatigue</th>
+                </tr></thead>
+                <tbody id="log-rows"></tbody>
+            </table>
+        </div>
+        <p class="error-text" id="log-error"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="day-h" aria-live="polite">
+        <div class="panel-head">
+            <h2 id="day-h" class="label">Selected day</h2>
+        </div>
+        <div id="day-detail"></div>
+    </section>
+
+</main>
+<script src="core.js"></script>
+<script src="imu.js"></script>
+<script src="activetime.js"></script>
+<script src="timeline.js"></script>
+<script src="advice.js"></script>
+</body>
+</html>

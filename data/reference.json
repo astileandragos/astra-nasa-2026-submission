@@ -1,0 +1,368 @@
+{
+  "items": [
+    {
+      "id": "i4-cardiovascular-paper",
+      "title": "Inspiration4: wearable cardiovascular measurements (published paper)",
+      "kind": "literature",
+      "mission": "Inspiration4 (2021, commercial spaceflight, four crew members)",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11357997/",
+      "access": "The article is open access (CC BY 4.0). According to the article, the underlying data are in controlled-access repositories (TrialX, NASA OSDR/GeneLab, the SOMA portal, the Commercial Spaceflight Data Repository).",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "statements": [
+        "Heart rate, heart rate variability and SpO2 came from a Series 6 Apple Watch, worn on average 1.3 days in flight.",
+        "Heart rate differed significantly across mission phases (F = 37.10, P < 0.0001). Heart rate variability also differed (F = 5.64, P = 0.0046).",
+        "The paper reports 177 SpO2 measurements in total. The in-flight oxygenation measurements of two crew members failed.",
+        "Overall in-flight activity was lower than before flight (F = 6.65, P < 0.0001)."
+      ],
+      "cannot_be_compared": [
+        "Different device and protocol: a consumer smartwatch, a few days in flight, four people.",
+        "No per-phase numeric values were extracted yet (the supplementary tables were not read). Do not quote numbers that are not in this list.",
+        "ASTRA's MAX30102 gives experimental estimates. No clinical comparison is made."
+      ],
+      "topics": [
+        "cardiovascular",
+        "human_spaceflight"
+      ]
+    },
+    {
+      "id": "i4-osdr-public-datasets",
+      "title": "NASA OSDR: public Inspiration4 datasets",
+      "kind": "dataset",
+      "mission": "Inspiration4 (2021)",
+      "source_url": "https://www.nasa.gov/osdr-latest-news-i4-mission-datasets/",
+      "access": "Processed data are public. Raw data such as genetic sequence files need an application with board approval (controlled access).",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "statements": [
+        "Public processed studies listed on the page: OSD-569 whole blood, OSD-570 PBMC, OSD-571 blood plasma, OSD-575 blood serum, OSD-572 swabs, OSD-573 capsule environment, OSD-574 skin biopsies, OSD-630 stool, OSD-656 urine, OSD-687 T-cells."
+      ],
+      "cannot_be_compared": [
+        "None of the listed public studies is a heart rate or SpO2 time series, so ASTRA's sensor values cannot be compared with them.",
+        "A heart rate or SpO2 file may exist on an individual OSDR study page. That has not been checked."
+      ],
+      "topics": [
+        "human_spaceflight"
+      ]
+    },
+    {
+      "id": "flight-crew-physiological-data",
+      "title": "Flight Crew Physiological Data for Crew State Monitoring",
+      "kind": "dataset",
+      "mission": "Pilot pairs in non-flight experiments and a flight simulator (not astronauts, not spaceflight)",
+      "source_url": "https://data.nasa.gov/dataset/flight-crew-physiological-data-for-crew-state-monitoring",
+      "access": "Public ZIP archives. The page does not state a licence.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "statements": [
+        "Physiological data from pilot and co-pilot pairs, sampled at 256 Hz per sensor, collected to train models that detect attentive states.",
+        "The training set comes from controlled non-flight experiments. The test set is a full simulated flight (LOFT)."
+      ],
+      "cannot_be_compared": [
+        "This is not astronaut or space mission data and must never be presented as such.",
+        "The page does not name the recorded signals, so the availability of heart rate or SpO2 is unconfirmed."
+      ],
+      "topics": [
+        "cardiovascular"
+      ]
+    },
+    {
+      "id": "nasa-ochmo-tb-020",
+      "title": "NASA OCHMO-TB-020 (Rev E): Design for Ionizing Radiation Protection",
+      "kind": "literature",
+      "mission": "NASA technical brief derived from NASA-STD-3001 Volume 1 Rev B and Volume 2 Rev C (dated 27 Dec 2022); applies to NASA crewed missions in general",
+      "source_url": "https://www.nasa.gov/wp-content/uploads/2023/03/radiation-protection-technical-brief-ochmo.pdf",
+      "access": "Public PDF on nasa.gov. The brief says it is for reference only and does not supersede or waive Agency, Program or Contract requirements.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "statements": [
+        "[V1 4030] An individual astronaut's total career effective radiation dose from spaceflight radiation shall be less than 600 mSv. The limit is universal for all ages and sexes and uses the NASA effective dose (NASA cancer model of 2012, 35-year-old female parameters).",
+        "[V1 4031] The program shall protect crewmembers from the design reference solar particle event environment (sum of the October 1989 events) to less than a NASA effective dose of 250 mSv.",
+        "The brief says the 250 mSv limit is based on not adding more than 10% radiation exposure beyond the mission's space environment exposure (about 0.5 mSv per day for a surface mission in its analysis).",
+        "Radiation alerting provides an additional layer of protection to limit exposure to solar particle events (early warning lets the crew safe the vehicle and configure a shelter). Timelines of SPEs allow sufficient time for re-configuration.",
+        "Real-time alert dosimetry provides a very high level of protection for EVAs if EVA termination occurs within 2 hours and shielding is accessible.",
+        "About 95% of SPEs need only ALARA considerations and do not approach dose limits. Aluminum and polyethylene give an average 50% reduction of SPE dose and only about 7% for GCR."
+      ],
+      "cannot_be_compared": [
+        "These are NASA design and career limits in effective dose (mSv). They are not alert thresholds and not a number of days an astronaut may stay in space.",
+        "ASTRA's alert levels and exposure budget are illustrative demonstration models, not NASA flight rules.",
+        "Proton flux in pfu (NOAA) cannot be converted to effective dose without a radiation transport and shielding model."
+      ],
+      "topics": [
+        "radiation"
+      ]
+    },
+    {
+      "id": "noaa-swpc-radiation-storms",
+      "title": "NOAA SWPC Space Weather Scales: S-scale (solar radiation storms) and GOES proton flux data",
+      "kind": "dataset",
+      "mission": "GOES satellites in geostationary orbit (primary satellite chosen by NOAA); space weather, not a spacecraft or astronaut measurement",
+      "source_url": "https://www.spaceweather.gov/products/goes-proton-flux",
+      "access": "Public JSON files at services.swpc.noaa.gov/json/goes/primary/ (integral-protons-6-hour, -1-day, -3-day, -7-day). 5-minute averages, energy channels >=1, >=5, >=10, >=30, >=50, >=60, >=100 and >=500 MeV, in pfu (protons per cm2 s sr). Served with a 60 second cache; the newest sample was about 10 minutes old when checked.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "statements": [
+        "The S-scale is defined by the flux of protons at or above 10 MeV: S1 10 pfu, S2 100, S3 1,000, S4 10,000, S5 100,000.",
+        "NOAA's listed average frequency per solar cycle: S1 50, S2 25, S3 10, S4 3, S5 fewer than 1.",
+        "NOAA's wording for astronauts on EVA: S3 'radiation hazard avoidance recommended', S4 'unavoidable radiation hazard', S5 'unavoidable high radiation hazard'. No EVA hazard is listed for S1 and S2.",
+        "NOAA's page says the GOES-14 and GOES-15 JSON products ended in 2020; the current primary satellite in the data read on 14 Nov 2026 was GOES-18 (satellite id 18)."
+      ],
+      "cannot_be_compared": [
+        "Proton flux is a space weather measurement at the satellite's orbit. It is not the radiation dose inside a spacecraft or received by an astronaut.",
+        "The S-scale classifies events. It does not give an effective dose and has no direct mapping to mSv.",
+        "Heart rate, SpO2 and movement readings in ASTRA are unrelated measurements; nothing here is compared with them."
+      ],
+      "topics": [
+        "radiation"
+      ]
+    },
+    {
+      "id": "osdr-search-finding",
+      "title": "NASA OSDR search: what the repository does and does not contain for ASTRA's sensors",
+      "kind": "dataset",
+      "mission": "NASA Open Science Data Repository, GeneLab and Ames Life Sciences Data Archive studies",
+      "source_url": "https://osdr.nasa.gov/bio/repo/search?q=&data_source=cgene,alsda,esa&data_type=study",
+      "access": "Public search page and public search API (https://osdr.nasa.gov/osdr/data/search). Free text search over study metadata.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "human_spaceflight"
+      ],
+      "statements": [
+        "On 14 Nov 2026 the search API found no study in the GeneLab or Ames archives for the terms actigraphy, accelerometer, oxygen saturation or heart rate variability.",
+        "The same day it found 14 (GeneLab) and 2 (Ames) studies matching 'heart rate', and 1 (Ames) matching 'electrocardiogram'. The ones read were animal or cell studies, not wearable recordings from people.",
+        "The 'ESA' data source filter of the web page returned no study for 'heart rate'.",
+        "OSDR studies are mostly omics, imaging, behaviour and physiology measurements of animals, cells and some human samples, with the study metadata open to search."
+      ],
+      "cannot_be_compared": [
+        "Counts depend on the search term and the day; they describe what a keyword search returned, not everything NASA holds.",
+        "None of the studies found is a continuous heart rate, SpO2 or movement recording comparable with the MAX30102 and ICM-20948 readings."
+      ]
+    },
+    {
+      "id": "osdr-435-591-radiation-heart",
+      "title": "OSD-435 and OSD-591: low-dose oxygen ions and protons and cardiac function in mice",
+      "kind": "dataset",
+      "mission": "Ground radiation experiment on male C57BL/6J mice (not a spaceflight, not humans); OSD-435 echocardiogram data (released 2023-05-24), OSD-591 western blot, histology and immunohistochemistry (released 2023-05-30)",
+      "source_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-435",
+      "access": "Public study page on NASA OSDR (study metadata and, where released, files). Check the terms and the file access conditions on the study page before using any data file.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "radiation",
+        "cardiovascular"
+      ],
+      "statements": [
+        "The study description says astronauts beyond low Earth orbit will be exposed to high linear energy transfer charged particles, and that there is concern about adverse effects of space radiation on the cardiovascular system.",
+        "Mice were exposed to oxygen ions (16O, 600 MeV/n, total dose 0, 0.05, 0.1, 0.25 or 1 Gy), to protons (150 MeV, 0, 0.5 or 1 Gy), to protons (0.5 Gy) followed by 16O (0.1 Gy), and separate groups to 137Cs gamma rays.",
+        "OSD-435 holds the echocardiogram and ultrasonography data; OSD-591 holds western blot, histology and immunohistochemistry data of the same experiment (companion study: https://osdr.nasa.gov/bio/repo/data/studies/OSD-591)."
+      ],
+      "cannot_be_compared": [
+        "Only the study description and design were read. The results were not read; no finding from this study is stated here.",
+        "Mouse heart measured by ultrasound after controlled laboratory irradiation. Not human, not a wearable, and the doses are whole-body absorbed doses in Gy, not the proton flux (pfu) used for the NOAA event classification.",
+        "Nothing here converts a NOAA flux or an ASTRA alert level into a cardiac effect."
+      ]
+    },
+    {
+      "id": "osdr-720-881-radiation-heart-transcriptome",
+      "title": "OSD-720 and OSD-881: long-term heart changes after gamma and simulated galactic cosmic ray radiation in mice",
+      "kind": "dataset",
+      "mission": "Ground radiation experiments on mice (OSD-720 left ventricle, released 2024-07-17; OSD-881 right ventricle with a Western diet, released 2025-06-25)",
+      "source_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-720",
+      "access": "Public study page on NASA OSDR (study metadata and, where released, files). Check the terms and the file access conditions on the study page before using any data file.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "radiation",
+        "cardiovascular"
+      ],
+      "statements": [
+        "OSD-720 description: a heart failure with preserved ejection fraction like cardiac phenotype was reported 660 days after a single dose of a simplified galactic cosmic ray simulation (simGCRsim), only in males; the study examines sex-specific changes in the left ventricle transcriptome with RNA sequencing.",
+        "OSD-881 description: long-term effects of single whole-body gamma and simulated GCR irradiation and of a Western diet on the right ventricle of three-month-old male and female mice (companion study: https://osdr.nasa.gov/bio/repo/data/studies/OSD-881)."
+      ],
+      "cannot_be_compared": [
+        "Gene expression in mouse heart tissue months after irradiation. Not a heart rate, not human and not related to a solar particle event dose.",
+        "Only the study descriptions were read."
+      ]
+    },
+    {
+      "id": "osdr-896-vigilance-proton",
+      "title": "OSD-896, OSD-897, OSD-939: sustained attention in rats after proton radiation",
+      "kind": "dataset",
+      "mission": "Ground proton irradiation experiments on inbred adult male Fischer 344 and Lewis rats (OSD-896 released 2025-11-18)",
+      "source_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-896",
+      "access": "Public study page on NASA OSDR (study metadata and, where released, files). Check the terms and the file access conditions on the study page before using any data file.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "radiation",
+        "sleep_activity"
+      ],
+      "statements": [
+        "The report assessed low-level proton irradiation in rats performing an analog of the human Psychomotor Vigilance Test, which the description says is commonly used to quantify fatigue and sustained attention in laboratory, clinical and operational settings.",
+        "Head-only proton irradiation (25 or 100 cGy) disrupted the performance in a strain-specific manner; 25 cGy exposed Fischer 344 rats showed the most severe deficits in sustained attention, according to the description.",
+        "Companion studies: https://osdr.nasa.gov/bio/repo/data/studies/OSD-897 and https://osdr.nasa.gov/bio/repo/data/studies/OSD-939."
+      ],
+      "cannot_be_compared": [
+        "Rats, head-only irradiation in Gy, a behavioural task. ASTRA's fatigue is a self-reported 1 to 5 score and no radiation dose reaches it.",
+        "Only the description was read."
+      ]
+    },
+    {
+      "id": "osdr-1018-isolation-radiation-sleep",
+      "title": "OSD-1018: social isolation and space radiation, behaviour and motor learning in rats",
+      "kind": "dataset",
+      "mission": "Ground experiment on rats (released 2026-11-04)",
+      "source_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-1018",
+      "access": "Public study page on NASA OSDR (study metadata and, where released, files). Check the terms and the file access conditions on the study page before using any data file.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "radiation",
+        "isolation_behavior",
+        "sleep_activity"
+      ],
+      "statements": [
+        "The description says Mars missions will expose astronauts to space radiation and periods of social isolation, that each of these stressors can affect physical and mental health and can negatively impact sleep, and that effects may vary with duration, may add up, and may differ between individuals.",
+        "The measured outcome type is behaviour; the factors are ionizing radiation and housing condition."
+      ],
+      "cannot_be_compared": [
+        "A rat study. It supports why ASTRA tracks sleep, mood and stress next to the sensors; it gives no numbers to compare with them.",
+        "Only the description was read."
+      ]
+    },
+    {
+      "id": "osdr-964-biosentinel",
+      "title": "OSD-964: BioSentinel, validating yeast biosensors for deep space radiation",
+      "kind": "dataset",
+      "mission": "BioSentinel biological CubeSat mission, with ground validation using simulated deep space radiation (released 2026-05-20)",
+      "source_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-964",
+      "access": "Public study page on NASA OSDR (study metadata and, where released, files). Check the terms and the file access conditions on the study page before using any data file.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "radiation"
+      ],
+      "statements": [
+        "The description says BioSentinel is the first biological payload to study the effects of radiation beyond low Earth orbit in 50 years, using budding yeast cells to investigate the response to long-term, low-dose deep space radiation.",
+        "The study defines a method to detect the biological response to space-like radiation using simulated deep space radiation and a metabolic indicator dye reduction assay (cell viability)."
+      ],
+      "cannot_be_compared": [
+        "A biological radiation sensor concept (cells as a dosimeter). ASTRA has no such sensor; its radiation monitor reads NOAA data.",
+        "Only the description was read."
+      ]
+    },
+    {
+      "id": "osdr-776-gcr-cognition",
+      "title": "OSD-776, OSD-777, OSD-778: deep space radiation and cognitive performance in mice",
+      "kind": "dataset",
+      "mission": "Ground experiments with accelerated charged particles simulating galactic cosmic radiation (GCRsim) on mice (released 2024-11-14)",
+      "source_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-776",
+      "access": "Public study page on NASA OSDR (study metadata and, where released, files). Check the terms and the file access conditions on the study page before using any data file.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "radiation",
+        "isolation_behavior"
+      ],
+      "statements": [
+        "The description says that after GCRsim exposure males displayed impaired spatial learning while females did not, that the learning impairments corresponded with chronic microglia activation and synaptic alterations in the hippocampus, and that temporary microglia depletion shortly after exposure mitigated the deficits.",
+        "Companion studies: https://osdr.nasa.gov/bio/repo/data/studies/OSD-777 and https://osdr.nasa.gov/bio/repo/data/studies/OSD-778. OSD-776 is the blood flow cytometry part."
+      ],
+      "cannot_be_compared": [
+        "Mouse behaviour after simulated galactic cosmic rays, not a solar particle event and not human.",
+        "Only the description was read."
+      ]
+    },
+    {
+      "id": "osdr-575-inspiration4-serum",
+      "title": "OSD-575: SpaceX Inspiration4 blood serum metabolic panel and immune and cardiac cytokine arrays",
+      "kind": "dataset",
+      "mission": "SpaceX Inspiration4 (3-day mission, four private astronauts, low Earth orbit, September 2021); released 2024-05-14",
+      "source_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-575",
+      "access": "Study metadata is public on NASA OSDR. Earlier checks found that the Inspiration4 wearable data is controlled access; check the data file conditions on the study page.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "human_spaceflight",
+        "cardiovascular"
+      ],
+      "statements": [
+        "Serum was collected before flight (L-92, L-44, L-3) and after flight (R+1, R+45, R+82) and submitted for immune and cardiovascular cytokine biomarker panels and a comprehensive metabolic panel.",
+        "Related Inspiration4 studies in the same repository include whole blood measurements (OSD-569) and a urine inflammation panel (OSD-656)."
+      ],
+      "cannot_be_compared": [
+        "Blood biomarkers from four people over a 3-day mission. Not a heart rate, SpO2 or movement recording.",
+        "Only the description was read."
+      ]
+    },
+    {
+      "id": "osdr-942-bed-rest-exercise",
+      "title": "OSD-942: exercise training and the muscle response to 70 days of bed rest (NASA bed rest study)",
+      "kind": "dataset",
+      "mission": "NASA 70-day head-down bed rest study with 22 healthy young men (released 2024-06-27)",
+      "source_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-942",
+      "access": "Public study page on NASA OSDR (study metadata and, where released, files). Check the terms and the file access conditions on the study page before using any data file.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "countermeasures",
+        "sleep_activity",
+        "human_spaceflight"
+      ],
+      "statements": [
+        "The description says exercise training during the NASA 70-day bed rest study effectively counteracted the decline in aerobic capacity, muscle mass, strength and endurance.",
+        "The 22 participants were randomized to bed rest only (7), bed rest with aerobic (6 days a week) and resistance training (3 days a week) on standard equipment (7), or with a flywheel device (8). Muscle samples were taken on day 64.",
+        "Related bed rest studies: OSD-51 (women, with protein supplementation and training) and OSD-540 (10-day lower limb suspension)."
+      ],
+      "cannot_be_compared": [
+        "Gene expression in thigh muscle samples. It supports the idea behind ASTRA's movement and activity view (inactivity and exercise countermeasures) but has no movement or heart rate numbers to compare.",
+        "Only the description was read."
+      ]
+    },
+    {
+      "id": "osdr-140-mars-520",
+      "title": "OSD-140: epigenetic patterns during the Mars-520 mission simulation",
+      "kind": "dataset",
+      "mission": "Mars-520: 520-day isolation experiment simulating a Mars mission, 6 crew members (released 2015-01-14)",
+      "source_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-140",
+      "access": "Public study page on NASA OSDR (study metadata and, where released, files). Check the terms and the file access conditions on the study page before using any data file.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "isolation_behavior",
+        "human_spaceflight"
+      ],
+      "statements": [
+        "The description says the study is a longitudinal epigenetic, mood state and biochemical profiling of 6 crew members, using DNA methylation profiles from blood cells.",
+        "It frames long-term isolation as relevant to interplanetary missions."
+      ],
+      "cannot_be_compared": [
+        "DNA methylation, mood questionnaires and biochemistry from 6 people in an isolation simulation. ASTRA's self-reported mood and stress are a daily 1 to 5 check-in, a much simpler tool.",
+        "Only the description was read."
+      ]
+    },
+    {
+      "id": "osdr-484-astronaut-exosomes-cardiomyocytes",
+      "title": "OSD-484: astronaut plasma exosomes and gene expression in human cardiomyocyte cells",
+      "kind": "dataset",
+      "mission": "Blood plasma of 3 Shuttle astronauts, 10 days before launch and 3 days after return, applied to AC16 human ventricular cardiomyocyte cells (released 2022-03-12)",
+      "source_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-484",
+      "access": "Public study page on NASA OSDR (study metadata and, where released, files). Check the terms and the file access conditions on the study page before using any data file.",
+      "retrieved": "2026-11-14",
+      "status": "needs_review",
+      "topics": [
+        "cardiovascular",
+        "human_spaceflight"
+      ],
+      "statements": [
+        "The description says spaceflight stressors are associated with adverse effects on astronaut health, including increased cancer and cardiovascular disease risks.",
+        "Small extracellular vesicles (exosomes) were isolated from the plasma of 3 astronauts at L-10 and R+3 and used to treat AC16 cells; the outcome is transcription profiling."
+      ],
+      "cannot_be_compared": [
+        "A cell experiment with plasma from 3 astronauts. Not a recording of the heart.",
+        "Only the description was read."
+      ]
+    }
+  ]
+}

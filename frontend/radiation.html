@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiation · ASTRA</title>
+    <link rel="stylesheet" href="ui.css">
+    <script src="chart.js"></script>
+</head>
+<body>
+<main id="main" class="page">
+
+    <div class="banner banner-warn" id="demo-banner" hidden>
+        <strong>SIMULATED DEMO.</strong> The storm, the doses and the history on this page are made up. <a id="demo-exit" href="radiation.html">Exit the demo</a>
+    </div>
+
+    <!-- the staged heads-up: is a solar storm coming, and what to do before it -->
+    <section class="panel" id="outlook-panel" aria-labelledby="outlook-h">
+        <div class="panel-head">
+            <h2 id="outlook-h" class="label">Get ready: is a solar storm coming?</h2>
+            <span id="outlook-chip"></span>
+        </div>
+        <ol class="stages" id="outlook-stages" aria-label="Five stages, from all clear to shelter"></ol>
+        <p class="rad-sub" id="outlook-headline"></p>
+        <div id="outlook-steps"></div>
+        <span class="label">What ASTRA is watching</span>
+        <ul class="signals" id="outlook-signals"></ul>
+        <p class="note" id="outlook-limits"></p>
+        <details class="ref">
+            <summary>Where this comes from</summary>
+            <ul class="ref-list" id="outlook-sources"></ul>
+        </details>
+        <p class="error-text" id="outlook-error"></p>
+    </section>
+
+    <!-- status, what to do and notifications: one panel -->
+    <section class="panel rad-card" id="rad-card" aria-labelledby="rad-status-h">
+        <div class="panel-head">
+            <h2 id="rad-status-h" class="label">Radiation status</h2>
+            <span id="rad-chip"></span>
+        </div>
+        <div class="rad-level" id="rad-level">--</div>
+        <p class="rad-sub" id="rad-sub"></p>
+        <dl class="facts" id="rad-facts"></dl>
+
+        <div class="do-box do-unknown" id="do-box" aria-labelledby="do-h">
+            <h3 id="do-h" class="label">What should I do?</h3>
+            <p class="do-text" id="do-text"></p>
+            <div id="rad-actions"></div>
+            <div id="rad-ack"></div>
+            <p class="note">These messages are examples, not NASA rules. ASTRA cannot allow or cancel a spacewalk.</p>
+        </div>
+
+        <div id="rad-notes"></div>
+        <p class="error-text" id="rad-error"></p>
+
+        <details class="ref">
+            <summary>Demo: simulate a solar storm</summary>
+            <p class="note">Switches the page to made-up data. The real data is never changed.</p>
+            <div class="sim-buttons" id="sim-buttons"></div>
+            <p class="message" id="sim-msg" role="status" aria-live="polite"></p>
+        </details>
+    </section>
+
+    <!-- daily exposure and the career limit: one panel -->
+    <section class="panel" id="exp-panel" aria-labelledby="exp-h">
+        <div class="panel-head">
+            <h2 id="exp-h" class="label">Radiation exposure</h2>
+            <span class="chip chip-plain">ESTIMATE</span>
+            <span id="exp-chip"></span>
+        </div>
+        <div class="grid-equal">
+            <div>
+                <span class="label">Daily exposure</span>
+                <div class="reading-value"><span id="exp-day">--</span><span class="unit">mSv/day</span></div>
+                <p class="insight-statement" id="exp-day-sub"></p>
+            </div>
+            <div>
+                <span class="label">NASA limit for a whole career: 600 mSv</span>
+                <div class="reading-value"><span id="exp-total">--</span><span class="unit">mSv received</span></div>
+                <div class="meter" aria-hidden="true"><span id="exp-meter" style="width:0%"></span></div>
+                <p class="insight-statement" id="exp-total-sub"></p>
+            </div>
+        </div>
+        <span class="label">Mission days left</span>
+        <div class="tiles" id="mission-tiles"></div>
+        <p class="note" id="mission-note"></p>
+        <div class="chart-box"><canvas id="exp-chart" role="img" aria-label="Estimated radiation dose of each of the last 7 days: usual radiation and solar storms"></canvas></div>
+        <p class="note" id="exp-note"></p>
+        <details class="ref">
+            <summary>Adjust values</summary>
+            <div class="grid-equal">
+                <form class="form" id="cfg-form" novalidate>
+                    <h3 class="label">Your mission and your dose</h3>
+                    <div class="field"><label for="cfg-mdays">Mission length, in days</label><input type="number" id="cfg-mdays" min="1" step="1" inputmode="numeric"></div>
+                    <div class="field"><label for="cfg-mday">Today is mission day</label><input type="number" id="cfg-mday" min="0" step="1" inputmode="numeric"></div>
+                    <div class="field"><label for="cfg-initial">Dose received so far, in mSv</label><input type="number" id="cfg-initial" min="0" step="any" inputmode="decimal"></div>
+                    <div class="field"><label for="cfg-rate">Usual daily radiation, in mSv per day</label><input type="number" id="cfg-rate" min="0" step="any" inputmode="decimal"></div>
+                    <button type="submit" class="button button-quiet">Save</button>
+                    <p class="message" id="cfg-msg" role="status" aria-live="polite"></p>
+                </form>
+                <form class="form" id="dose-form" novalidate>
+                    <h3 class="label">Add a reading from your radiation badge</h3>
+                    <div class="field"><label for="dose-msv">Dose in mSv</label><input type="number" id="dose-msv" min="0" step="any" inputmode="decimal"></div>
+                    <div class="field"><label for="dose-note">Note <span class="hint">optional</span></label><input type="text" id="dose-note" maxlength="200"></div>
+                    <button type="submit" class="button button-quiet">Add dose</button>
+                    <p class="message" id="dose-msg" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </details>
+        <p class="error-text" id="exp-error"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="ev-h">
+        <div class="panel-head">
+            <h2 id="ev-h" class="label">Solar storms in the last 7 days</h2>
+            <span id="ev-chip"></span>
+        </div>
+        <ul class="event-list" id="ev-list"></ul>
+        <p class="error-text" id="ev-error"></p>
+    </section>
+
+</main>
+<script src="core.js"></script>
+<script src="radiation.js"></script>
+</body>
+</html>

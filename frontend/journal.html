@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal · ASTRA</title>
+    <link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<main id="main" class="page">
+
+    <section class="panel" aria-labelledby="wb-h">
+        <div class="panel-head">
+            <h2 id="wb-h" class="label">Well-being suggestions</h2>
+            <span class="chip chip-self_reported">SELF-REPORTED</span>
+        </div>
+        <p class="insight-statement" id="wb-lead"></p>
+        <div class="guide-grid" id="wb-list"></div>
+        <p class="note">Based only on what you typed. Report difficulties that persist through your mission channels.</p>
+    </section>
+
+    <div class="grid-2 grid-journal">
+        <section class="panel" aria-labelledby="form-h">
+            <div class="panel-head">
+                <h2 id="form-h" class="label">Daily check-in</h2>
+                <span class="chip chip-self_reported">SELF-REPORTED</span>
+            </div>
+            <p class="note">Typed by you. It is never mixed with sensor data and you can skip any question.</p>
+            <form id="journal-form" class="form" novalidate>
+                <div class="field">
+                    <label for="j-date">Day</label>
+                    <input type="date" id="j-date" name="date" required>
+                </div>
+                <fieldset class="field" data-scale="mood">
+                    <legend>Mood</legend>
+                    <div class="scale" id="scale-mood"></div>
+                    <div class="scale-ends"><span>1 lowest</span><span>5 highest</span></div>
+                </fieldset>
+                <fieldset class="field" data-scale="energy">
+                    <legend>Energy</legend>
+                    <div class="scale" id="scale-energy"></div>
+                    <div class="scale-ends"><span>1 lowest</span><span>5 highest</span></div>
+                </fieldset>
+                <fieldset class="field" data-scale="stress">
+                    <legend>Stress</legend>
+                    <div class="scale" id="scale-stress"></div>
+                    <div class="scale-ends"><span>1 lowest</span><span>5 highest</span></div>
+                </fieldset>
+                <fieldset class="field" data-scale="fatigue">
+                    <legend>Fatigue</legend>
+                    <div class="scale" id="scale-fatigue"></div>
+                    <div class="scale-ends"><span>1 lowest</span><span>5 highest</span></div>
+                </fieldset>
+                <div class="field">
+                    <span class="label">Environment <span class="hint">tap to add to the note</span></span>
+                    <div class="sim-buttons" id="env-notes"></div>
+                </div>
+                <div class="field">
+                    <label for="j-note">Note <span class="hint">optional, up to 500 characters</span></label>
+                    <textarea id="j-note" name="note" rows="3" maxlength="500"></textarea>
+                </div>
+                <button type="submit" class="button">Save check-in</button>
+                <p class="message" id="j-message" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section class="panel" aria-labelledby="list-h">
+            <div class="panel-head">
+                <h2 id="list-h" class="label">Last 7 check-ins</h2>
+            </div>
+            <div class="table-scroll">
+                <table class="data-table">
+                    <thead><tr><th scope="col">Day</th><th scope="col">Mood</th><th scope="col">Energy</th><th scope="col">Stress</th><th scope="col">Fatigue</th><th scope="col">Source</th></tr></thead>
+                    <tbody id="j-rows"></tbody>
+                </table>
+            </div>
+            <p class="note" id="j-empty"></p>
+            <p class="note">Saving a day that already has an entry replaces it. A check-in saved here is always stored as self-reported.</p>
+            <p class="error-text" id="j-error"></p>
+        </section>
+    </div>
+
+    <section class="panel" aria-labelledby="envf-h">
+        <div class="panel-head">
+            <h2 id="envf-h" class="label">Spacecraft environment</h2>
+            <span class="chip chip-plain">FUTURE DEVELOPMENT</span>
+        </div>
+        <p class="note">Air quality, temperature, contaminants and microorganisms matter in a closed spacecraft. ASTRA's current hardware has no sensor for them, so it shows no such values. For now you can note discomfort in the check-in. Environmental sensors are a possible later addition.</p>
+    </section>
+
+</main>
+<script src="core.js"></script>
+<script src="advice.js"></script>
+<script src="journal.js"></script>
+<script src="wellbeing.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overview · ASTRA</title>
+    <link rel="stylesheet" href="ui.css">
+    <script src="chart.js"></script>
+</head>
+<body>
+<main id="main" class="page" data-page="index.html" data-title="Overview">
+
+    <h2 class="sr-only">Mission status at a glance</h2>
+    <div class="status-grid" id="cards">
+        <a class="scard scard-unknown" id="c-rad" href="radiation.html" aria-labelledby="c-rad-h">
+            <span class="label" id="c-rad-h">Radiation status</span>
+            <div class="scard-value" id="c-rad-value">DATA UNAVAILABLE</div>
+            <p class="scard-status" id="c-rad-sub"></p>
+        </a>
+        <section class="scard" id="c-hr" aria-labelledby="c-hr-h">
+            <span class="label" id="c-hr-h">Heart rate</span>
+            <div class="scard-value"><span id="hr-value">--</span><span class="unit">bpm</span></div>
+            <p class="scard-status" id="c-hr-note">Insufficient data</p>
+        </section>
+        <section class="scard" id="c-spo2" aria-labelledby="c-spo2-h">
+            <span class="label" id="c-spo2-h">SpO2 (estimate)</span>
+            <div class="scard-value"><span id="spo2-value">--</span><span class="unit">%</span></div>
+            <p class="scard-status" id="c-spo2-note">Insufficient data</p>
+        </section>
+        <section class="scard" id="c-act" aria-labelledby="c-act-h">
+            <span class="label" id="c-act-h">Activity status</span>
+            <div class="scard-value" id="c-act-value">--</div>
+            <p class="scard-status" id="c-act-note">Insufficient data</p>
+        </section>
+        <a class="scard" id="c-sleep" href="activity.html" aria-labelledby="c-sleep-h" hidden>
+            <span class="label" id="c-sleep-h">Sleep and recovery</span>
+            <div class="scard-value" id="c-sleep-value">--</div>
+            <p class="scard-status" id="c-sleep-note"></p>
+        </a>
+        <a class="scard" id="c-sens" href="sensors.html" aria-labelledby="c-sens-h">
+            <span class="label" id="c-sens-h">Sensors and data</span>
+            <div class="scard-value" id="c-sens-value">--</div>
+            <p class="scard-status" id="c-sens-note"></p>
+        </a>
+    </div>
+
+
+    <div class="grid-equal">
+        <section class="panel" aria-labelledby="notif-h">
+            <div class="panel-head">
+                <h2 id="notif-h" class="label">Notifications</h2>
+                <span class="notice-summary" id="notif-summary" aria-live="polite"></span>
+            </div>
+            <ul class="notice-list" id="notif-list"></ul>
+            <p class="error-text" id="notif-error"></p>
+        </section>
+
+        <section class="panel" aria-labelledby="sugg-h">
+            <div class="panel-head">
+                <h2 id="sugg-h" class="label">Daily suggestions</h2>
+            </div>
+            <ul class="notice-list" id="sugg-list"></ul>
+            <p class="error-text" id="sugg-error"></p>
+        </section>
+    </div>
+
+</main>
+<script src="core.js"></script>
+<script src="overview.js"></script>
+</body>
+</html>

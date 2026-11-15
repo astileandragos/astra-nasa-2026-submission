@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity · ASTRA</title>
+    <link rel="stylesheet" href="ui.css">
+    <script src="chart.js"></script>
+</head>
+<body>
+<main id="main" class="page">
+
+    <section class="panel" aria-labelledby="today-h">
+        <div class="panel-head">
+            <h2 id="today-h" class="label">Activity today</h2>
+            <span id="today-chip"></span>
+        </div>
+        <div class="tiles tiles-4" id="today-tiles"></div>
+        <p class="insight-statement" id="today-still" aria-live="polite"></p>
+        <p class="note" id="today-basis"></p>
+        <div class="legend" id="today-legend"></div>
+        <p class="error-text" id="today-error"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="recs-h">
+        <div class="panel-head">
+            <h2 id="recs-h" class="label">Today's recommendations</h2>
+        </div>
+        <p class="note" id="recs-basis"></p>
+        <div class="guide-grid" id="recs-list"></div>
+        <p class="note" id="recs-sources"></p>
+        <p class="error-text" id="recs-error"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="rest-h">
+        <div class="panel-head">
+            <h2 id="rest-h" class="label">Rest, last 7 nights</h2>
+            <span id="rest-chip"></span>
+            <span class="chip chip-plain">ESTIMATED FROM MOVEMENT</span>
+        </div>
+        <p id="rest-summary" class="insight-statement" aria-live="polite"></p>
+        <dl class="facts" id="rest-facts"></dl>
+        <div id="rest-strip" class="strip" role="img" aria-label="For each night, the movement of every half hour from 18:00 to 12:00 and the estimated rest period"></div>
+        <div class="legend" id="rest-legend"></div>
+        <p class="note" id="rest-stages"></p>
+        <p class="note" id="rest-usual"></p>
+        <div class="table-scroll">
+            <table class="data-table">
+                <thead><tr><th scope="col">Night ending</th><th scope="col">Rest start</th><th scope="col">Rest end</th><th scope="col">Duration</th><th scope="col">Wake-ups</th><th scope="col">Resting heart rate</th></tr></thead>
+                <tbody id="rest-rows"></tbody>
+            </table>
+        </div>
+        <details class="ref">
+            <summary>How the rest period is found</summary>
+            <p class="note" id="rest-limits"></p>
+        </details>
+        <p class="error-text" id="rest-error"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="act-h">
+        <div class="panel-head">
+            <h2 id="act-h" class="label">Active minutes by hour</h2>
+        </div>
+        <div class="field">
+            <label for="day-select">Day</label>
+            <select id="day-select"></select>
+        </div>
+        <div class="chart-box"><canvas id="act-chart" role="img" aria-label="Minutes of light, moderate and high movement in each hour of the day"></canvas></div>
+        <p id="act-summary" aria-live="polite"></p>
+        <p class="error-text" id="act-error"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="sleep-h">
+        <div class="panel-head">
+            <h2 id="sleep-h" class="label">Sleep and body clock</h2>
+            <span class="chip chip-plain">NASA-BASED GUIDANCE</span>
+        </div>
+        <p class="insight-statement" id="sleep-lead"></p>
+        <div class="guide-grid" id="sleep-grid"></div>
+        <p class="note">Record how you slept and what disturbed it in the <a href="journal.html">Journal</a>.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="chk-h">
+        <div class="panel-head">
+            <h2 id="chk-h" class="label">Steadiness check</h2>
+        </div>
+        <p class="note">Hold still with the device for 30 seconds. ASTRA compares the movement with your own earlier checks, saved in this browser. If it is clearly higher than usual, repeat the check and follow your sensorimotor training schedule; report dizziness or coordination problems that persist.</p>
+        <button type="button" class="button button-quiet" id="check-run">Start a 30-second check</button>
+        <p class="insight-statement" id="check-out" aria-live="polite"></p>
+    </section>
+
+</main>
+<script src="core.js"></script>
+<script src="advice.js"></script>
+<script src="imu.js"></script>
+<script src="rest.js"></script>
+<script src="activity.js"></script>
+<script src="guidance.js"></script>
+<script src="today.js"></script>
+</body>
+</html>
