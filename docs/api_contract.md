@@ -482,17 +482,5 @@ curl "http://<LAPTOP_IP>:5000/api/measurements?limit=20"  # newest first
 ```
 Test posts from curl use `"source":"simulated"`, never `live_hardware`.
 
-## 8. What each person does with this
-- **Râpan Andrei (firmware):** build the JSON exactly as in section 5, `null` for anything not measured, no timestamp, `POST` it to `/api/measurements`, handle non-`201` responses. Tell Aștilean Dragoș the sampling interval you can sustain.
-- **Ioja Dănuț (frontend):** read `GET /api/measurements/latest` and `GET /api/measurements`, show the source label on every value, show "waiting for data" on `404` or `null`, send the journal to `POST /api/journal`. Until the server exists, use the example JSON in section 5 and 6 as mock data.
-- **Ciolea Daniel:** confirm the `external` label and the journal scales; all NASA and other references are listed in `docs/RESOURCES.md`.
-- **Aștilean Dragoș:** implements all of this in `backend/` and ships a simulator that posts `simulated` data.
-
-## 9. Review checklist (tick when agreed)
-- [ ] Râpan Andrei confirms the payload (section 5), units and sensor ranges
-- [ ] Ioja Dănuț confirms the responses (section 6) and the journal scales
-- [ ] Ciolea Daniel confirms the source labels (section 4), including `external`
-- [x] Self-reported label is `self_reported` (decided by Aștilean Dragoș)
-- [x] Server records the time of receipt; ESP32 sends no timestamp (decided by Aștilean Dragoș)
-- [ ] `<LAPTOP_IP>` and port announced on the board
-- [ ] Sampling interval agreed (Râpan Andrei, Aștilean Dragoș, Ioja Dănuț). Suggested start: one reading every 2 seconds
+## 8. Status
+This contract is implemented by the backend (`backend/`), the dashboard (`frontend/`) and the firmware (`firmware/esp32/`). Decisions: the self-reported label is `self_reported`; the server records the time of receipt and the ESP32 sends no timestamp; NOAA and NASA OSDR data use the `external` label; one reading is sent about every 2 seconds. No formal sign-off by individual reviewers is recorded in this repository.

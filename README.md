@@ -2,12 +2,12 @@
 
 NASA Space Apps Challenge 2026 · Cluj-Napoca · Challenge: **Create Health Monitoring Software for Astronauts on Space Missions**
 
-**Demo / presentation (7 slides):** [`presentation/ASTRA_pitch.pdf`](presentation/ASTRA_pitch.pdf) (PDF) and [`presentation/ASTRA_pitch.pptx`](presentation/ASTRA_pitch.pptx) (PowerPoint, with the two demo videos) in this repository. These links work once the repository is public. The Space Apps form also needs one public link [TEAM TO ADD if a separate hosting link is used].
+**Demo / presentation (7 slides):** [PDF](https://github.com/astileandragos/astra-nasa-2026-submission/blob/main/presentation/ASTRA_pitch.pdf) · [PowerPoint with the two demo videos](https://github.com/astileandragos/astra-nasa-2026-submission/blob/main/presentation/ASTRA_pitch.pptx) (download the file to play the videos). Both are in `presentation/` in this repository.
 
 ASTRA is an **experimental educational prototype**. It is **not a medical device**, it is **not certified or clinically validated**, it gives no diagnosis or medical advice, and it is **not a NASA-approved system** and is not connected to NASA systems.
 
 ## The problem
-On a long mission, for example to Mars, a message to Earth can take many minutes each way (up to about 22 minutes one way), so a crew cannot always wait for ground support. Astronauts need to understand changes in their own health, and to know when to look after themselves, when to tell a crew member with medical training, and when to call for emergency help. NASA lists distance from Earth, isolation, radiation, altered gravity and closed environments among the hazards of human spaceflight (see `docs/RESOURCES.md`).
+On a long mission, for example to Mars, a message to Earth can take many minutes each way (up to about 22 minutes one way for a crewed Mars mission, according to a [NASA analysis](https://ntrs.nasa.gov/citations/20220013418)), so a crew cannot always wait for ground support. Astronauts need to understand changes in their own health, and to know when to look after themselves, when to tell a crew member with medical training, and when to call for emergency help. NASA lists distance from Earth, isolation, radiation, altered gravity and closed environments among the hazards of human spaceflight (see `docs/RESOURCES.md`).
 
 ## What ASTRA is, and why it is relevant to long-duration missions
 ASTRA brings a few health indicators and the radiation situation together in one local dashboard that runs on the crew's own computer and does not need a connection to Earth for its health rules (the live space-weather feed does need a data link). It compares each person with their own usual values, explains changes in plain words, and gives practical first steps in three levels of care: self-care, tell the crew medical officer, and emergency (call the crew for help and mission control at the same time, without waiting for a reply).
@@ -17,7 +17,7 @@ ASTRA brings a few health indicators and the radiation situation together in one
 |---|---|
 | Dashboard with Overview, Timeline, Radiation, Activity, Journal and Sensors pages (`frontend/`) | Implemented and tested with simulated data; used with the live sensor in the demo |
 | Rule-based notifications (`backend/notices.py`): heart rate against the person's own baseline, blood oxygen against baseline, rest start and length, no movement, weak signal, gaps in wear time, lost connection, radiation | Implemented. **The rules and thresholds are the team's own experimental choices.** NASA publishes no validated thresholds for these; they are not NASA-approved |
-| Advice in plain language with three levels of care, each step tagged `NASA GUIDANCE` or `ASTRA SUGGESTION` | Implemented. The wording needs a review by someone with medical training **[team to confirm]** |
+| Advice in plain language with three levels of care, each step tagged `NASA GUIDANCE` or `ASTRA SUGGESTION` | Implemented. The advice is general information written by the team; no clinical review of the wording is recorded in this repository |
 | Radiation page: NOAA GOES proton flux, NOAA S-scale, ASTRA alert levels 0 to 3 and a five-stage outlook (All clear, Watch, Prepare, Build the shelter, Shelter) | Implemented. See "Radiation" below for what it can and cannot do |
 | ESP32 sketch reading a MAX30102 (heart rate) and an ICM-20948 (motion), with a 16x2 LCD, a buzzer and an OLED driver (`firmware/esp32/`) | Compiles with the real ESP32 core and libraries. Run on a real board on 15 Nov 2026 (see `firmware/esp32/README.md` for exactly what was and was not tested) |
 | USB link from the board to the dashboard (`tools/serial_bridge.py`), which also sends the current notification to the board's LCD | Implemented; 9 unit tests; observed working on the real board on 15 Nov 2026 |
@@ -77,7 +77,7 @@ Details and the consistent definitions: `docs/RADIATION_REFERENCES.md` (section 
 - Wi-Fi sending has not been tested on the real board.
 
 ## Use of AI (Super Intelligence) tools
-Claude Code (Anthropic), an AI coding assistant, helped the team write and test code (backend, dashboard, firmware integration, tests), write documentation and draft the presentation. The team chose the idea, the approach, the rules and the thresholds, and reviewed and tested the results **[team to confirm this statement is accurate]**. AI-assisted commits in the original working repository carry a `Co-Authored-By` line. Any AI-generated image in the presentation must carry a visible watermark **[team to confirm whether any were used]**.
+Claude Code (Anthropic), an AI coding assistant, helped the team write and test code (backend, dashboard, firmware integration, tests), write documentation and draft the presentation. The idea, the approach, the rules and the thresholds are the team's, and the team reviewed and tested the results. AI-assisted commits in the original working repository carry a `Co-Authored-By` line. No AI-generated image is recorded in this repository; the sources of the images in the presentation are listed in `docs/RESOURCES.md` (section 5).
 
 ## Repo map
 | Folder | What |
@@ -92,7 +92,7 @@ Claude Code (Anthropic), an AI coding assistant, helped the team write and test 
 | `THIRD_PARTY_NOTICES.md` | Third-party software and its licences |
 
 ## Licence
-**[TEAM TO DECIDE]** No licence file has been added yet. See `THIRD_PARTY_NOTICES.md` section 3 for the recommendation (MIT or Apache-2.0). Third-party components keep their own licences (`THIRD_PARTY_NOTICES.md`).
+The team's original code and documentation are released under the [MIT License](LICENSE). Third-party components keep their own licences (`THIRD_PARTY_NOTICES.md`). NASA and NOAA documents and data and the presentation images are not covered by this licence.
 
 ## Team
 **Team name: Mon**

@@ -52,7 +52,7 @@ How to read this section:
 | URL | https://www.nasa.gov/wp-content/uploads/2025/08/ochmo-tb-044-medical-operations.pdf |
 | Verified locations | Flight surgeons and crew medical roles, including the Chief Medical Officer (CMO) who "receives additional medical training" (page 3); telemedicine and remote communication (page 4); Private Medical Conferences (page 5); top priority to communication between the flight surgeon and the crew in an emergency (page 6) |
 | ASTRA feature informed | The idea behind ASTRA's three levels of care (self-care, tell the crew medical officer, emergency) |
-| Does NOT validate | The three levels themselves, which are ASTRA's own simplification; any notification threshold. **Wording note:** NASA's term is "Chief Medical Officer (CMO)". ASTRA's "crew medical officer" is its own generic wording, not a NASA job title [team to confirm] |
+| Does NOT validate | The three levels themselves, which are ASTRA's own simplification; any notification threshold. **Wording note:** NASA's term is "Chief Medical Officer (CMO)". ASTRA's "crew medical officer" is its own generic wording, not a NASA job title |
 
 ### 2.4 NASA HRP Evidence Report: Risk of Cardiac Rhythm Problems During Spaceflight
 | | |
@@ -70,7 +70,7 @@ How to read this section:
 | Publisher | NASA Human Research Program, Human Health Countermeasures Element, Johnson Space Center |
 | Revision | Approved for public release March 9, 2015 |
 | URL | https://humanresearchroadmap.nasa.gov/evidence/reports/Aerobic.pdf |
-| Verified locations | Executive summary (page 5): maintaining aerobic capacity is a significant concern, and even a 10% fall may affect tolerance to extended work. Other pages not checked [team to confirm which page each Activity card relies on] |
+| Verified locations | Executive summary (page 5): maintaining aerobic capacity is a significant concern, and even a 10% fall may affect tolerance to extended work. The Activity page lists this report as a source; the code does not itemise which statements come from it, so only the executive summary is cited here |
 | ASTRA feature informed | Background for the Activity advice |
 | Does NOT validate | Any activity, movement or inactivity threshold in ASTRA |
 
@@ -87,10 +87,11 @@ How to read this section:
 ### 2.7 Other NASA and agency pages (context only, not re-checked in this audit)
 | Resource | Link | Used for |
 |---|---|---|
-| NASA: Seven ways astronauts improve sleep | https://www.nasa.gov/missions/station/seven-ways-astronauts-improve-sleep-may-help-you-snooze-better-on-earth/ | Rest advice [page content not re-checked on 15 Nov] |
-| NASA: How NASA will protect astronauts from space radiation at the Moon | https://science.nasa.gov/science-research/heliophysics/how-nasa-will-protect-astronauts-from-space-radiation-at-the-moon | The Orion shelter idea (stowage bags, food and water) and the statement that forecasting is hard |
+| NASA: Seven ways astronauts improve sleep | https://www.nasa.gov/missions/station/seven-ways-astronauts-improve-sleep-may-help-you-snooze-better-on-earth/ | Rest advice. Checked 15 Nov 2026: the page says crews follow a strict sleep and wake schedule, that schedules should include lighting instructions, and that temperature, lighting, airflow and noise affect sleep. Specific steps such as "dim bright lights in the hour before rest" are ASTRA's adaptation, not NASA text |
+| NASA: How NASA will protect astronauts from space radiation at the Moon | https://science.nasa.gov/science-research/heliophysics/how-nasa-will-protect-astronauts-from-space-radiation-at-the-moon | Checked 15 Nov 2026: Orion crews would use stowage bags, or storage units and food and water supplies, to build a temporary shelter; solar particle storms are "difficult to predict"; NASA's Space Radiation Analysis Group checks NOAA's space weather forecast daily |
 | NASA Human Research Program: hazards, risks, ongoing research | https://www.nasa.gov/hrp/hazards/ , https://www.nasa.gov/hrp/risks/ , https://www.nasa.gov/hrp/ongoing-hrp-research/ | Problem framing |
 | NASA: The human body in space | https://www.nasa.gov/humans-in-space/the-human-body-in-space/ | Problem framing |
+| NASA, Communication Delays, Disruptions, and Blackouts for Crewed Mars Missions (NASA Technical Reports Server) | https://ntrs.nasa.gov/citations/20220013418 | The "up to about 22 minutes one way" Mars delay used in the README and the presentation |
 | Canadian Space Agency: monitoring radiation for astronaut health; why we do science in space | https://www.asc-csa.gc.ca/eng/news/articles/2026/2026-02-26-monitoring-radiation-astronaut-health.asp , https://www.asc-csa.gc.ca/eng/iss/science/why-do-we-conduct-science-experiments-in-space.asp | Context |
 
 ## 3. Other data and background reading
@@ -116,10 +117,5 @@ How to read this section:
 
 Images and other media used in the presentation: see the credits in the presentation itself.
 
-## 5. Verified NASA technical briefs
-
-- **NASA OCHMO-TB-020, Rev E, page 4, requirement V1 4030:** NASA states a career effective radiation dose limit below 600 mSv. ASTRA uses this as scientific context for the Radiation page. ASTRA does not measure astronaut radiation dose or convert NOAA proton flux into dose.
-- **NASA OCHMO-TB-031, page 2, requirement V1 4003:** NASA describes maintaining in-mission aerobic capacity at or above 80% of pre-mission capacity. ASTRA uses this as background for activity guidance. Our motion sensor does not measure aerobic capacity.
-- **NASA OCHMO-TB-044, page 3:** NASA describes medical crew roles including Flight Surgeons and the Chief Medical Officer (CMO), as NASA calls the crew member with additional medical training. This informs ASTRA's crew-support concept. ASTRA's three levels of care are our own demonstration design, not official NASA medical procedures.
-
-These sources provide scientific context and guidance, not validated thresholds for the ASTRA sensors. The linked NASA documents remain hosted by NASA.
+## 5. Images in the presentation
+The presentation (`presentation/ASTRA_pitch.pptx`) uses a Moon and Earth image on the title slide, an Apollo 13 photograph on slide 2, a screenshot of the ASTRA dashboard on slide 4 and two screen and camera recordings of the prototype on slide 6. **The source and licence of the title-slide image and of the Apollo 13 photograph are not recorded in this repository; the team must add them here (NASA images are public domain but should be credited to NASA).**

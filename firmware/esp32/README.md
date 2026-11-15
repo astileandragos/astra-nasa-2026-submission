@@ -38,6 +38,6 @@ While the bridge runs it asks the dashboard for the current notifications every 
 - The "Data has gaps today" notice is not shown on the LCD. `--no-lcd` turns the feature off. The wording is in `lcd_message()` in `tools/serial_bridge.py`.
 
 ## Wi-Fi mode (optional, not tested on the board)
-Set `ENABLE_NETWORK 1`. Copy `sectrets/secrets.example.h` to `secrets.h` in the sketch folder and fill in the Wi-Fi name, password, laptop IP and device id (`secrets.h` is git-ignored; never commit it). The board then POSTs one measurement every 2 seconds to `SERVER_URL`; a failed POST waits 6 seconds, and a lost connection is retried every 10 seconds without restarting. The OLED line `Net:OK Srv:201` (when an OLED is present) means the server accepted the last measurement.
+Set `ENABLE_NETWORK 1`. Copy `secrets_example/secrets.example.h` to `secrets.h` in the sketch folder and fill in the Wi-Fi name, password, laptop IP and device id (`secrets.h` is git-ignored; never commit it). The board then POSTs one measurement every 2 seconds to `SERVER_URL`; a failed POST waits 6 seconds, and a lost connection is retried every 10 seconds without restarting. The OLED line `Net:OK Srv:201` (when an OLED is present) means the server accepted the last measurement.
 
 Bench mode without any link: `ENABLE_NETWORK 0` and `USB_STREAM 0`.

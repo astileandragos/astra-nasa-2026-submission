@@ -242,42 +242,8 @@ Not built (ideas): an alert history chart over weeks, `>=100 MeV` hardness, Kp a
 
 ---
 
-## 10. Implementation checklist
-
-Difficulty: S small, M medium, L large.
-
-**P0: minimum working demonstration (built on this branch)**
-| Task | Hardware | Backend | Frontend | Firmware | Test | Diff. | Main risk |
-|---|---|---|---|---|---|---|---|
-| NOAA fetch, validation, storage | none | `radiation.py`, 4 tables, refresh endpoint | status line | none | fake fetcher tests, live fetch checked | M | no internet at the venue: show last data and age |
-| Flux classification and event state machine | none | `evaluate()` replay | none | none | 20+ unit tests (onset, escalation, hysteresis, gaps, duplicates) | M | thresholds are illustrative |
-| Alerts, acknowledgement, `GET /api/radiation/alert` | OLED + button (not confirmed) | endpoints | alert cards, OLED preview | **Râpan Andrei:** poll, draw, button, buzzer | API tests; OLED test on hardware **pending** | M | OLED/buzzer hardware not confirmed |
-| Simulated scenarios | none | `simulate` | controls | none | scenario tests | S | looks real: keep the SIMULATED labels |
-| Radiation page and Overview notification | none | `notices.py` | page, chart, forms | none | browser checks desktop and 375 px | M | too much text for a 2-minute pitch |
-| Illustrative budget and "why it changed" | none | `budget()` | tiles, table, forms | none | formula and edge-case tests | M | people read it as a mission length: keep the wording |
-
-**P1: better analysis**
-| Task | Backend | Frontend | Firmware | Test | Diff. | Risk |
-|---|---|---|---|---|---|---|
-| `>=100 MeV` channel and a "hardness" indicator | store the second channel, ratio rule | second line on the chart | none | unit tests with real SPE-shaped data | M | needs reading about what the ratio means |
-| Replay real historical events (for example NOAA 7-day files during a past storm) | load a stored JSON | none | none | assert the alerts match the known event | M | finding a clean test event |
-| Event-level summary: fluence of the event (flux integrated over time) as an *event size* number, **not dose** | integrate flux | event row | none | unit test with a known integral | S | people may still read it as dose: label it fluence |
-| Read the real text of NASA-STD-3001 V2 6099 to 6101 and align the alert wording | wording | wording | wording | review by Ciolea Daniel | S | access to the standard |
-| Onboard timestamp and heartbeat from the ESP32 for "server lost" | none | none | add | hardware | S | none |
-
-**P2: future** (see also section 13.5 for the organ map)
-- Onboard detector (architecture B) with calibration; needs a confirmed sensor.
-- Dose estimation through a radiation transport and shielding model (labelled `model_estimate`).
-- Per-location shielding map of the habitat; EVA planning tied to the forecast.
-- NOAA SWPC alerts and forecasts as an extra input, and the Kp and X-ray context.
-
-**Testing procedure**
-1. `pytest` in `backend/` (all tests, including `test_radiation.py`).
-2. `python app.py`, open `http://<LAPTOP_IP>:5000/radiation.html`: check real NOAA data (usually S0, level 0).
-3. Switch to *Simulated scenario*, press **S4 storm**: level 3, the OLED preview, the Overview notification, the budget change; press *Acknowledge*; press **Quiet** to reset.
-4. Stop the network (or block `services.swpc.noaa.gov`) and confirm: the last data stays, "NOAA could not be reached" appears, and the level is held.
-
----
+## 10. Implementation status
+The Radiation page, the endpoints, the alert state machine, the budget and the simulated scenarios are implemented and covered by `backend/test_radiation.py` and the other backend tests. The hackathon task table that stood here is not reproduced. Parts of the original design that depend on an OLED, a button or a firmware poll of the radiation endpoint were **not built** (see section 7); the board's LCD shows the dashboard notifications through `tools/serial_bridge.py`.
 
 ## 11. Critical review of the assumptions in the request
 1. **"Estimated remaining mission duration"** is the most misleading phrase. Dividing a budget by a rate gives days only inside the assumptions. We show it as *days at an assumed background rate within an illustrative budget* and list the assumptions on the page.
@@ -289,10 +255,8 @@ Difficulty: S small, M medium, L large.
 7. **A quiet Sun makes a boring demo.** The simulated scenario is the honest fix, clearly labelled.
 8. **Alert levels invented for a prototype** must never be presented as NASA flight rules; the interface says so.
 
-## 12. Open questions for the team
-- Ciolea Daniel: read NASA-STD-3001 Vol 2 6099 to 6101 and the SRAG pages; confirm the NOAA event definition (3 consecutive samples) and the wording of the three alert levels.
-- Râpan Andrei and Roșca Cristian: is there an OLED and a buzzer or a button on the board, and which model and address?
-- Everyone: how many minutes of the pitch may this feature use? One short demo (real S0, then the S4 simulation, acknowledge, budget change) fits in about 60 seconds.
+## 12. Open questions
+The NOAA event definition (3 consecutive samples), the exact wording of NASA-STD-3001 Vol 2 [V2 6099] to [V2 6101] and the thresholds are the team's choices and have not been reviewed by a radiation specialist. Hardware questions (OLED, buzzer, button) are tracked in `hardware/README.md`.
 
 ---
 
