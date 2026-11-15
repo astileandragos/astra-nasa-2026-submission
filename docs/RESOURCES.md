@@ -55,3 +55,11 @@ Checked 15 Nov 2026. Two rules apply to everything below:
 | Claude Code (Anthropic), an AI coding assistant | Help writing and testing code, documentation and the presentation; see the AI section of the README |
 
 Images and other media used in the presentation: see the credits in the presentation itself.
+
+## 5. Verified NASA technical briefs
+
+- **NASA OCHMO-TB-020, Rev E, page 4, requirement V1 4030:** NASA states a career effective radiation dose limit below 600 mSv. ASTRA uses this as scientific context for the Radiation page. ASTRA does not measure astronaut radiation dose or convert NOAA proton flux into dose.
+- **NASA OCHMO-TB-031, page 2, requirement V1 4003:** NASA describes maintaining in-mission aerobic capacity at or above 80% of pre-mission capacity. ASTRA uses this as background for activity guidance. Our motion sensor does not measure aerobic capacity.
+- **NASA OCHMO-TB-044, page 3:** NASA describes medical crew roles including Flight Surgeons and Crew Medical Officers. This informs ASTRA's crew-support concept. ASTRA's three levels of care are our own demonstration design, not official NASA medical procedures.
+
+These sources provide scientific context and guidance, not validated thresholds for the ASTRA sensors. The linked NASA documents remain hosted by NASA.
