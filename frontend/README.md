@@ -1,6 +1,6 @@
 # frontend/
 
-The ASTRA dashboard: plain HTML, CSS and JavaScript, Chart.js stored locally (`chart.js`). Owner: Black (Dănuț), shared with Blue. Served by the Flask backend at `http://<LAPTOP_IP>:5000/`. The design and its reasons are in `docs/UI_DESIGN.md`.
+The ASTRA dashboard: plain HTML, CSS and JavaScript, Chart.js stored locally (`chart.js`). Served by the Flask backend at `http://127.0.0.1:5000/` (or the laptop's IP on the local network). The rules behind the pages are in `docs/DASHBOARD.md`.
 
 ## Pages
 | File | Page | What it shows |
@@ -9,7 +9,7 @@ The ASTRA dashboard: plain HTML, CSS and JavaScript, Chart.js stored locally (`c
 | `timeline.html` + `timeline.js` | Timeline | Summary (averages, highs, lows), baseline ribbon, heart rate chart (median, low to high, baseline band) with tooltips, movement and reported sleep chart, the daily log table with exact numbers and CSV, selected-day detail. Range 7, 14 or 30 days; click a chart day to select it |
 | `activity.html` + `rest.js` + `activity.js` | Activity | Rest per night from movement (start, end, wake-ups, resting heart rate, regularity) and movement index per hour for a chosen day (both experimental) |
 | `journal.html` + `journal.js` | Journal | Daily check-in form (skip any question) and the last 7 check-ins |
-| `sensors.html` + `sensors.js` | Sensors | Can the readings be trusted: MAX30102 and ICM-20948 status, signal quality, last good measurement, missing data, what to do (see `docs/RIDGE_REDESIGN.md`) |
+| `sensors.html` + `sensors.js` | Sensors | Can the readings be trusted: MAX30102 and ICM-20948 status, signal quality, last good measurement, missing data, what to do |
 | `radiation.html` + `radiation.js` | Radiation | Radiation status with what to do and the latest alerts, the daily exposure estimate against NASA's 600 mSv career limit, the event history. Real NOAA data by default; a labelled demo mode for simulated storms |
 
 Shared: `core.js` (top bar, connection status, source chips, and `showPageNotices`: every measurement page shows its own notifications with advice, always), `ui.css` (the whole design system).

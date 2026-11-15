@@ -1,88 +1,30 @@
-# NASA Challenge Requirements Mapping — ASTRA
-
-## 1. Official challenge
+# NASA challenge requirements mapping: ASTRA
 
 **Challenge:** Create Health Monitoring Software for Astronauts on Space Missions
-
-**Official objective:** Build health-monitoring software that gathers health indicators and enables astronauts to evaluate and act on the status of their health.
-
-**Official challenge:**  
 https://www.spaceappschallenge.org/2026/challenges/health-monitoring-software/
 
-## 2. Problem ASTRA addresses
+**Objective:** build health-monitoring software that gathers health indicators and enables astronauts to evaluate and act on the status of their health.
 
-Long-duration space missions expose astronauts to conditions such as:
+## Problem
+Long missions expose astronauts to radiation, isolation and confinement, distance from Earth, altered gravity and hostile, closed environments (NASA's five human spaceflight hazards). When communication with Earth is delayed, a crew needs to understand its own health and know when to ask for help.
 
-- Space radiation
-- Isolation and confinement
-- Altered gravity
-- Hostile and closed environments
+## Requirement to solution (status on 15 Nov 2026)
 
-These conditions can contribute to physiological and behavioral health changes. Astronauts may need tools to recognize changes in their own health during missions.
-
-Scientific background: see [NASA and CSA Scientific References](nasa_references.md).
-
-## 3. Requirement-to-solution mapping
-
-| Challenge requirement | ASTRA response | Implementation status |
+| Challenge requirement | ASTRA response | Status |
 |---|---|---|
-| Gather health indicators | MAX30102 for experimental heart-rate and SpO₂ estimates; ICM-20948 for acceleration and gyroscope data | Hardware integration and readings must be verified |
-| Help astronauts evaluate their health | Dashboard displaying measurements, timestamps and data sources | End-to-end data flow must be verified |
-| Provide context beyond sensor readings | Daily self-reported journal for sleep, mood, energy and stress | Planned; implementation must be verified |
-| Help identify changes over time | Measurement history and comparison against an individual's baseline | Planned; implementation must be verified |
-| Support informed action | Simple, explainable observations based on available measurements and personal trends | Planned; implementation must be verified |
+| Gather health indicators | Heart rate (MAX30102) and acceleration and rotation (ICM-20948) from an ESP32, sent every 2 seconds over Wi-Fi or USB; daily self-reported check-in; space-weather data from NOAA | Implemented. Heart rate and motion tested on the real board; blood oxygen is not computed by the current firmware (sent as `null`) |
+| Help astronauts evaluate their health | Dashboard with Overview, Timeline, Radiation, Activity, Journal and Sensors pages; every value labelled `live_hardware`, `simulated`, `self_reported` or `external` | Implemented |
+| Help identify changes over time | A baseline from the previous days; today compared with the person's own usual values | Implemented (the demo baseline is a labelled simulated week) |
+| Support informed action | Notifications from documented rules with plain-language advice in three levels of care (self-care, tell the crew medical officer, emergency); a five-stage radiation outlook; notifications also shown on the board's LCD | Implemented. Advice steps are tagged NASA guidance or ASTRA suggestion; see `RESOURCES.md` |
+| Use NASA data and resources | NASA HRP evidence reports, OCHMO technical briefs, NASA radiation and shelter guidance, NASA OSDR reference studies; NOAA live data (not NASA) | See `RESOURCES.md` |
 
-## 4. ASTRA system overview
+## Data flow
+Sensors → ESP32 → (Wi-Fi or USB) → Flask API → SQLite → dashboard (and the LCD on the board).
 
-ASTRA is designed as a local hardware-software prototype.
-
-**Proposed data flow:**
-
-Sensors → ESP32 → Wi-Fi → Flask backend → SQLite database → Dashboard
-
-The planned platform includes:
-
-- Experimental sensor measurements
-- Self-reported daily information
-- Historical measurements and personal trends
-- Explainable, rule-based observations
-
-Only features verified as functional should be presented as implemented.
-
-## 5. What makes ASTRA relevant to space missions?
-
-ASTRA explores how multiple indicators can be brought together in one monitoring interface.
-
-Instead of showing isolated sensor values, the proposed platform combines physiological estimates, movement information and subjective daily reports. Historical data could provide context for changes over time.
-
-This is relevant to long-duration missions, where astronauts may need to monitor their own condition.
-
-## 6. Scope and limitations
-
-ASTRA is an educational prototype, not a certified medical device.
-
-- MAX30102 values are experimental estimates, not clinically validated measurements.
-- The platform does not diagnose medical conditions.
-- The prototype has not been validated in space or under microgravity.
-- Rule-based observations must not be presented as medical advice.
-- Simulated data must always be clearly labelled.
-- Missing or invalid measurements must not be represented as zero.
-- ASTRA does not measure radiation.
-- NASA and CSA references provide scientific background; their measurements are not currently integrated into ASTRA.
+## Scope and limitations
+- ASTRA is an educational prototype, not a medical device, and gives no diagnosis or medical advice.
+- Heart rate and motion come from low-cost sensors and are experimental estimates, not clinically validated; they would not survive the noise of microgravity. The prototype has not been validated in space.
+- NASA publishes no alert thresholds for heart rate, blood oxygen or movement, so ASTRA's thresholds are the team's own choices, not NASA flight rules.
+- ASTRA does not measure radiation and does not predict solar storms. It shows NOAA's space-weather data and early signs, and says so.
+- Simulated data is always labelled. A missing value is `null`, never `0`.
 - ASTRA does not claim NASA integration or endorsement.
-
-## 7. Final validation checklist
-
-Before presenting ASTRA, verify that:
-
-- [ ] ESP32 communicates with the backend.
-- [ ] MAX30102 provides readings or a clearly reported sensor error.
-- [ ] ICM-20948 provides motion readings or a clearly reported sensor error.
-- [ ] The dashboard displays incoming measurements.
-- [ ] Every measurement has a timestamp and identifiable source.
-- [ ] The journal works, if included in the final demo.
-- [ ] Historical trends work, if included in the final demo.
-- [ ] Any observations are explainable and do not make medical claims.
-- [ ] Simulated data is visibly distinguished from live hardware data.
-- [ ] The final presentation distinguishes implemented features from planned features.
-

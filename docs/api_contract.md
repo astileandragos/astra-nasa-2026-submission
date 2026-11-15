@@ -485,7 +485,7 @@ Test posts from curl use `"source":"simulated"`, never `live_hardware`.
 ## 8. What each person does with this
 - **Yellow (firmware):** build the JSON exactly as in section 5, `null` for anything not measured, no timestamp, `POST` it to `/api/measurements`, handle non-`201` responses. Tell Blue the sampling interval you can sustain.
 - **Black (frontend):** read `GET /api/measurements/latest` and `GET /api/measurements`, show the source label on every value, show "waiting for data" on `404` or `null`, send the journal to `POST /api/journal`. Until the server exists, use the example JSON in section 5 and 6 as mock data.
-- **Red:** confirm the `external` label and the journal scales; the NASA dataset references go in `docs/nasa_references.md`.
+- **Red:** confirm the `external` label and the journal scales; all NASA and other references are listed in `docs/RESOURCES.md`.
 - **Blue:** implements all of this in `backend/` and ships a simulator that posts `simulated` data.
 
 ## 9. Review checklist (tick when agreed)

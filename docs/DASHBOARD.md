@@ -1,6 +1,6 @@
 # ASTRA dashboard: what it looks like, what it shows, how it is built
 
-Status: describes the dashboard on branch `feat/ridge-dashboard-redesign` (14 Nov 2026), which adds, on top of `main` after pull request #21, the Radiation page, the Sensors page, the six-card Overview, the guidance texts on the Timeline and Activity pages, and the average active time. The pages are listed in section 1; sections 7b and 7c describe the Sensors and Radiation pages. Everything described here works on simulated data; the `live_hardware` view is the same pages reading the ESP32 data once it arrives. The design reasons are in `docs/UI_DESIGN.md`, the API fields are in `docs/api_contract.md`. This document describes the result.
+Status: describes the final dashboard (15 Nov 2026). The pages are listed in section 1; sections 7b and 7c describe the Sensors and Radiation pages, and sections 7d to 7f the pitch set-up (a labelled simulated baseline week plus today from the live sensor), the notification rules and the radiation outlook. The API fields are in `docs/api_contract.md`; every NASA and other source is listed in `docs/RESOURCES.md`.
 
 ASTRA is an educational prototype. The dashboard shows experimental estimates and observations from documented rules. It never diagnoses and never gives medical advice.
 
@@ -380,7 +380,6 @@ A view shows one measurement source. The check-in of the matching family appears
 Always a word and a shape with the color.
 
 ## 9. Visual design in short
-(Full detail and the reasons in `docs/UI_DESIGN.md`.)
 - **Style:** "Clean Scientific Minimalism": calm, mostly white, type and spacing instead of many boxes.
 - **Palette:** page `#F6F7F9`, panels `#FFFFFF`, ink `#0B1B33`, body text `#44546A`, muted text `#5B6B80`, one teal accent `#0E7C86`. Orange (`#8A4B08` on `#FEF3E2`) and red (`#A12116` on `#FDECEA`) are used for the traffic light and connection problems; green (`#17603A` on `#E8F5EC`) for OK. Text colors meet the WCAG AA contrast ratio.
 - **Type:** system font (Inter first if installed), tabular figures so numbers do not jump when they update; large 44 px reading numbers, 28 px page titles, 12 px uppercase labels.

@@ -29,11 +29,22 @@ Tests: `cd backend && pytest` (254 tests). With the board plugged in over USB, s
 ## Demo set-up and honesty
 For the demo, the previous 7 days are a **simulated baseline week** and today comes from the live sensor; the dashboard labels both (`BASELINE: SIMULATED WEEK`, `TODAY: LIVE SENSOR`). A warning therefore means "different from the simulated baseline". The thresholds are team choices, not NASA flight rules. The blood-oxygen value is not computed by the current firmware. Low-cost sensors would not survive the noise of microgravity: controlled laboratory validation is the next step.
 
-## NASA and other sources
-- NASA Human Research Program, Human Research Roadmap: Arrhythmia evidence report. Used for the heart-rate exercise and rhythm guidance (exact use: `docs/NASA_ARRHYTHMIA_REPORT_USE.md`).
-- NASA Human Research Program hazard and risk pages, NASA radiation and shelter guidance: `docs/nasa_references.md`, `docs/RADIATION_REFERENCES.md`.
-- NOAA Space Weather Prediction Center public feeds (not NASA; labelled `external`) for the radiation outlook.
-- Libraries: Flask, SQLite, pytest, Chart.js (bundled), Arduino ESP32 core, SparkFun MAX3010x and ICM-20948, Adafruit SSD1306/GFX, LiquidCrystal.
+## NASA data and resources used (and the notification each one feeds)
+NASA publishes no heart-rate, blood-oxygen or movement thresholds for crew alerts, so none are invented: the triggers are ASTRA's own rules, and the NASA documents shape the advice. Every advice step is tagged `NASA GUIDANCE` or `ASTRA SUGGESTION` on screen. **Full list with links: [`docs/RESOURCES.md`](docs/RESOURCES.md).**
+
+| Notification | NASA and other resources |
+|---|---|
+| Heart rate higher or lower than usual | [NASA HRP Arrhythmia evidence report](https://humanresearchroadmap.nasa.gov/evidence/other/Arrhythmia.pdf) ([exact use](docs/NASA_ARRHYTHMIA_REPORT_USE.md)), [NASA OCHMO TB-031 Exercise](https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-031-exercise-overview.pdf), [NASA OCHMO TB-044 Medical Operations](https://www.nasa.gov/wp-content/uploads/2025/08/ochmo-tb-044-medical-operations.pdf) |
+| Blood oxygen different from usual | No NASA numbers exist; safe steps only |
+| Rest started late, rest too short or long | [NASA: Seven ways astronauts improve sleep](https://www.nasa.gov/missions/station/seven-ways-astronauts-improve-sleep-may-help-you-snooze-better-on-earth/), NASA HRP hazards and risks |
+| No movement | NASA HRP Arrhythmia report (exercise), NASA OCHMO TB-031, [NASA HRP Reduced Physical Performance report](https://humanresearchroadmap.nasa.gov/evidence/reports/Aerobic.pdf) |
+| Weak signal, data gaps, device stopped | ASTRA technical rules (no NASA source) |
+| Radiation level S1 to S4 | NOAA SWPC GOES proton flux and S-scale (NOAA, not NASA), [NASA OCHMO radiation brief TB-020](https://www.nasa.gov/wp-content/uploads/2023/03/radiation-protection-technical-brief-ochmo.pdf) (600 mSv career limit) |
+| Radiation watch / prepare | NOAA SWPC flare, radio-burst and storm-chance feeds, [NASA: protecting astronauts from space radiation at the Moon](https://science.nasa.gov/science-research/heliophysics/how-nasa-will-protect-astronauts-from-space-radiation-at-the-moon) (shelter from stowage, food and water) |
+| Three levels of care in every notification | NASA OCHMO TB-044 Medical Operations; ASTRA's own simple version |
+| NASA reference panel | [NASA OSDR](https://osdr.nasa.gov) studies (read-only, labelled `external`; `docs/OSDR_RESOURCES.md`) |
+
+Also listed in `docs/RESOURCES.md`: Canadian Space Agency pages, National Academies, SwRI, hardware datasheets, libraries (Flask, SQLite, pytest, Chart.js 4.6.1, SparkFun, Adafruit, Arduino ESP32 core) and the AI assistant.
 
 ## Use of AI (Super Intelligence) tools
 Claude Code (Anthropic) helped the team write and test code (backend, dashboard, firmware integration, tests), write documentation and draft the presentation. The team chose the idea, the approach, the rules and thresholds, and reviewed and tested the results. AI-assisted commits carry a `Co-Authored-By` line in the original working repository.
@@ -47,7 +58,7 @@ Claude Code (Anthropic) helped the team write and test code (backend, dashboard,
 | `tools/` | `serial_bridge.py`: USB link between the board and the dashboard, with tests |
 | `hardware/` | Hardware notes |
 | `data/` | Sample payloads (always `simulated`) |
-| `docs/` | Architecture, data contract (`api_contract.md`), dashboard rules, NASA references |
+| `docs/` | `RESOURCES.md` (every source), `nasa_requirements_mapping.md`, `DASHBOARD.md` (rules), `api_contract.md`, `RADIATION_MONITOR.md`, `RADIATION_REFERENCES.md`, `NASA_ARRHYTHMIA_REPORT_USE.md`, `OSDR_RESOURCES.md` |
 
 ## Team
 Red – Ciolea (product, integration, pitch) · Blue – Dragoș (tech lead, backend) · Green – Roșca (hardware) · Yellow – Răpan (firmware) · Black – Dănuț (frontend and dashboard).
