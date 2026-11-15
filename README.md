@@ -2,7 +2,7 @@
 
 NASA Space Apps Challenge 2026 · Cluj-Napoca · Challenge: **Create Health Monitoring Software for Astronauts on Space Missions**
 
-**Demo / presentation (7 slides):** [TEAM TO ADD: public link, no login required]
+**Demo / presentation (7 slides):** [`presentation/ASTRA_pitch.pdf`](presentation/ASTRA_pitch.pdf) (PDF) and [`presentation/ASTRA_pitch.pptx`](presentation/ASTRA_pitch.pptx) (PowerPoint, with the two demo videos) in this repository. These links work once the repository is public. The Space Apps form also needs one public link [TEAM TO ADD if a separate hosting link is used].
 
 ASTRA is an **experimental educational prototype**. It is **not a medical device**, it is **not certified or clinically validated**, it gives no diagnosis or medical advice, and it is **not a NASA-approved system** and is not connected to NASA systems.
 
